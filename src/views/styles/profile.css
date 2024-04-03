@@ -1,0 +1,68 @@
+body {
+    background: rgb(99, 39, 120)
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: #BA68C8
+}
+
+.profile-button {
+    background: rgb(99, 39, 120);
+    box-shadow: none;
+    border: none
+}
+
+.profile-button:hover {
+    background: #682773
+}
+
+.profile-button:focus {
+    background: #682773;
+    box-shadow: none
+}
+
+.profile-button:active {
+    background: #682773;
+    box-shadow: none
+}
+
+.back:hover {
+    color: #682773;
+    cursor: pointer
+}
+
+.labels {
+    font-size: 17px;
+    display: inline-block;
+    width: 150px;
+    font-weight: bold;
+}
+
+.info {
+    margin-bottom: 10px;
+}
+
+.info span {
+    display: inline-block;
+    margin-left: 0px; 
+}
+
+.add-experience:hover {
+    background: #BA68C8;
+    color: #fff;
+    cursor: pointer;
+    border: solid 1px #BA68C8
+}
+
+.btn-purple {
+    background-color: #BA68C8;
+    border-color: #BA68C8;
+    color: white; 
+  }
+
+  .btn-blue {
+    background-color: #342ab9;
+    border-color: #342ab9;
+    color: white; 
+  }
