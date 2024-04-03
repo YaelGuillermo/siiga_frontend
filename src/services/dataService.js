@@ -24,14 +24,6 @@ export const getPaymentById = (id) => {
     return axios.get(`http://siiga_backend.test/api/v1/payments/${id}?include=student.user`).then(response => response.data);
 };
 
-export const getStudentsByUserId = (userId) => {
-    return axios.get('http://siiga_backend.test/api/v1/students')
-        .then(response => {
-            const allStudents = response.data;
-            return allStudents.filter(student => student.user_id == userId);
-        });
-};
-
 export const createUser = (userData) => {
     return axios.post('http://siiga_backend.test/api/v1/users', userData);
 };

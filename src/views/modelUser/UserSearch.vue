@@ -60,8 +60,8 @@
           <div class="d-flex justify-content-between align-items-center mb-3">
             <h4 class="text-right">Student's Child</h4>
           </div>
-          <div v-if="students">
-            <div v-for="(student, index) in students" :key="student.id">
+          <div v-if="user.students">
+            <div v-for="student in user.students" :key="student.id">
               <div v-if="student.status == 1">
                 <hr class="my-3"> 
               <div class="info">
@@ -82,7 +82,7 @@
               </div>
             </div>
           </div>
-          <div v-if="students == 0">
+          <div v-if="user.students.length == 0">
             None
           </div>
         </div>
@@ -101,7 +101,6 @@ export default {
   data() {
     return {
       user: null,
-      students: null,
       loading: false
     };
   },
@@ -119,22 +118,11 @@ export default {
       getUserById(userId)
         .then(user => {
           this.user = user;
-          this.getStudentsByUser(userId);
           this.loading = false;
         })
         .catch(error => {
           console.error('Error fetching user:', error);
           this.loading = false;
-        });
-    },
-    getStudentsByUser(userId) {
-      getStudentsByUserId(userId)
-        .then(students => {
-          console.log(students);
-          this.students = students;
-        })
-        .catch(error => {
-          console.error('Error fetching students:', error);
         });
     },
     getFullName,

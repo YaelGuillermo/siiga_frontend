@@ -1,5 +1,5 @@
 <template>
-    <div v-if="student" class="container rounded bg-white mt-5 mb-5">
+    <div v-if="student">
       <div class="row">
         <div class="col-md-6 border-right">
           <div class="d-flex flex-column align-items-center text-center p-3 py-5">
@@ -22,23 +22,23 @@
                 </router-link>
             </div>
           </div>
-          <div v-if="parent">
+          <div v-if="student.user">
                 <hr class="my-3"> 
               <div class="info">
                 <label class="labels font-weight-bold">Name</label>
-                <span>{{ getFullName(parent) }}</span>
+                <span>{{ getFullName(student.user) }}</span>
               </div>
               <div class="info">
                 <label class="labels font-weight-bold">Neighborhood</label>
-                <span>{{ parent.neighborhood }}</span>
+                <span>{{ student.user.neighborhood }}</span>
               </div>
               <div class="info">
                 <label class="labels font-weight-bold">Street</label>
-                <span>{{ parent.street }}</span>
+                <span>{{ student.user.street }}</span>
               </div>
               <div class="info">
                 <label class="labels font-weight-bold">Phone number</label>
-                <span>{{ filterPhoneNumber(parent.phone_number) }}</span>
+                <span>{{ filterPhoneNumber(student.user.phone_number) }}</span>
               </div>
             </div>
         </div>
@@ -51,14 +51,13 @@
   </template>
   
   <script>
-  import { getStudentById, getUserById, deleteStudent, getFullName, calculateAge, filterPhoneNumber } from '@/services/dataService';
+  import { getStudentById, deleteStudent, getFullName, calculateAge, filterPhoneNumber } from '@/services/dataService';
   import { confirmDelete, showErrorMessage, showDeleteSuccessMessage } from '@/services/alerts';
 
   export default {
     data() {
       return {
         student: null,
-        parent: null,
         loading: false
       };
     },
@@ -76,21 +75,10 @@
         getStudentById(studentId)
           .then(student => {
             this.student = student;
-            this.getUserById(this.student.user_id);
+            this.loading = false;
           })
           .catch(error => {
             console.error('Error fetching student:', error);
-            this.loading = false;
-          });
-      },
-      getUserById(userId) {
-        getUserById(userId)
-          .then(parent => {
-            this.parent = parent;
-            this.loading = false;
-          })
-          .catch(error => {
-            console.error('Error fetching parent detail:', error);
             this.loading = false;
           });
       },
@@ -115,7 +103,3 @@
     }
   };
 </script>
-
-  
-  <style src="../styles/profile.css"></style>
-  

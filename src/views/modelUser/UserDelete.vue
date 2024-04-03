@@ -1,7 +1,7 @@
 <template>
-    <div v-if="user" class="container rounded bg-white mt-5 mb-5">
+    <div v-if="user">
         <div class="row">
-              <div class="col-md-6 border-right">
+              <div class="col-md-6">
                 <div class="d-flex flex-column align-items-center text-center p-3 py-5">
                     <button type="button" class="btn btn-purple" @click="deleteUserProfile">
                         <i class="fas fa-trash"></i> Delete
@@ -20,7 +20,7 @@
             <h4 class="text-right">Student's Child</h4>
           </div>
           <div v-if="students">
-            <div v-for="(student, index) in students" :key="student.id">
+            <div v-for="(student, index) in user.students" :key="student.id">
               <div v-if="student.status == 1">
                 <hr class="my-3"> 
               <div class="info">
@@ -41,7 +41,7 @@
               </div>
             </div>
           </div>
-          <div v-if="students == 0">
+          <div v-if="user.students == 0 || user.students.status == 0">
             None
           </div>
         </div>
@@ -51,14 +51,13 @@
 </template>
   
 <script>
- import { getUserById, getStudentsByUserId, deleteUser, getFullName, calculateAge } from '@/services/dataService';
+ import { getUserById, deleteUser, getFullName, calculateAge } from '@/services/dataService';
 import { confirmDelete, showErrorMessage, showDeleteSuccessMessage } from '@/services/alerts';
   
   export default {
     data() {
       return {
         user: null,
-        students: null,
         loading: false
       };
     },
@@ -76,7 +75,6 @@ import { confirmDelete, showErrorMessage, showDeleteSuccessMessage } from '@/ser
         getUserById(userId)
           .then(user => {
             this.user = user;
-            this.getStudentsByUser(userId);
             this.loading = false;
           })
           .catch(error => {
@@ -84,16 +82,6 @@ import { confirmDelete, showErrorMessage, showDeleteSuccessMessage } from '@/ser
             this.loading = false;
           });
       },
-      getStudentsByUser(userId) {
-      getStudentsByUserId(userId)
-        .then(students => {
-          console.log(students);
-          this.students = students;
-        })
-        .catch(error => {
-          console.error('Error fetching students:', error);
-        });
-    },
     async deleteUserProfile() { 
         const result = await confirmDelete(getFullName(this.user)); 
 
@@ -114,5 +102,3 @@ import { confirmDelete, showErrorMessage, showDeleteSuccessMessage } from '@/ser
     }
   };
   </script>
-  
-  <style src="../styles/profile.css"></style>
