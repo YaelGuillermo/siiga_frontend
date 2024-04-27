@@ -15,6 +15,9 @@ import StudentDelete from '../views/modelStudent/StudentDelete.vue';
 import UserCreate from '../views/modelUser/UserCreate.vue';
 import UserUpdate from '../views/modelUser/UserUpdate.vue';
 import UserSearch from '../views/modelUser/UserSearch.vue';
+
+import UserSearchV2 from '../views/modelUser/UserSearchV2.vue';
+
 import UserDelete from '../views/modelUser/UserDelete.vue';
 // PAYMENT'S OPERATION
 import PaymentCreate from '../views/modelPayment/PaymentCreate.vue';

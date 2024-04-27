@@ -1,6 +1,6 @@
 <template>
   <div>
-    <UserList title="List of Parents" role="Parent" />
+    <UserList title="List of Parents" role="P" />
   </div>
 </template>
 

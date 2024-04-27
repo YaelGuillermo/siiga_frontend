@@ -24,7 +24,7 @@
             <div class="col-md-12">
               <div class="info">
                 <label class="labels font-weight-bold">Gender</label>
-                <span>{{ student.gender }}</span>
+                <span>{{ formatGender(student.gender) }}</span>
               </div>
             </div>
             <div class="col-md-12">
@@ -98,7 +98,7 @@
                   <div class="col-md-3" v-for="payment in student.payments" :key="payment.id">
                 <div class="card mb-3">
                   <div class="card-header">
-                    <strong>{{ formatDate(payment.payment_date) }}</strong>
+                    <strong>{{ formatDate(payment.date) }}</strong>
                   </div>
                   <div class="card-body">
                     <p><strong>Amount:</strong> {{ formatCurrency(payment.amount) }}</p>
@@ -119,15 +119,15 @@
         </div>
       </div>
     </div>
-    <router-link :to="{ name: 'studentActiveShow'}" class="btn btn-blue position-fixed bottom-0 end-0 m-3">
-      <i class="fas fa-arrow-left"></i> Student list
+    <router-link :to="student.status != 'Active' ? { name: 'studentInactiveShow' } : { name: 'studentActiveShow' }" class="btn btn-blue position-fixed bottom-0 end-0 m-3">
+      <i class="fas fa-arrow-left"></i> {{ student.status != 'Active' ? 'Student Requests' : 'Student List' }}
     </router-link>
   </div>
 </template>
 
   
 <script>
-  import { getStudentById, getFullName, calculateAge, filterPhoneNumber, formatCurrency, formatDate } from '@/services/dataService';
+  import { getStudentById, getFullName, calculateAge, filterPhoneNumber, formatCurrency, formatDate, formatGender } from '@/services/dataService';
   export default {
     data() {
       return {
@@ -160,7 +160,8 @@
       calculateAge, 
       filterPhoneNumber,
       formatCurrency,
-      formatDate
+      formatDate,
+      formatGender
     }
   };
 </script>

@@ -1,187 +1,152 @@
 <template>
-  <div v-if="user" class="container rounded bg-white mt-5 mb-5">
-    <form @submit.prevent="updateUserProfile">
-          <div class="row">
-              <div class="col-md-4 border-right">
-                <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                  <button type="submit" class="btn btn-purple">
-                    <i class="fas fa-cog"></i> Update
-                  </button>
-                  <img class="rounded-circle mt-5" width="150px" v-if="user && user.photo" :src="user.photo" alt="User Image">
-                  <img class="rounded-circle mt-5" width="150px" v-else :src="require('@/assets/no-profile.png')" alt="No Profile Image">
-                  <span class="font-weight-bold">{{ user ? getFullName(user) : 'Guest' }}</span>
-                  <span class="text-black-50">{{ user ? user.email : 'guest@example.com' }}</span>
-                  <br>
-                <div class="col-md-12">
-                    <div class="info">
-                        <label class="labels font-weight-bold">Photo</label>
-                        <input type="file" class="form-control" accept="image/*">
-                    </div>
-                </div>
-                </div>
-              </div>
-              <div class="col-md-4 border-right">
-                <div class="p-3 py-5">
-                  <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4 class="text-right">Profile Settings</h4>
-                  </div>
-                  <div class="row mt-2">
-                      <div class="col-md-12">
-                          <div class="info">
-                              <label class="labels font-weight-bold">Name</label>
-                              <input type="text" v-model="user.name" class="form-control" required>
-                              <small class="text-danger">{{ errors.name }}</small>
-                          </div>
-                      </div>
-                      <div class="col-md-12">
-                          <div class="info">
-                              <label class="labels font-weight-bold">First Surname</label>
-                              <input type="text" v-model="user.first_surname" class="form-control" required>
-                              <small class="text-danger">{{ errors.first_surname }}</small>
-                          </div>
-                      </div>
-                      <div class="col-md-12">
-                          <div class="info">
-                              <label class="labels font-weight-bold">Secon Surname</label>
-                              <input type="text" v-model="user.second_surname" class="form-control" required>
-                              <small class="text-danger">{{ errors.second_surname }}</small>
-                          </div>
-                      </div>
-                      <div class="col-md-12">
-                          <div class="info">
-                              <label class="labels font-weight-bold">Date of birth</label>
-                              <input type="date" v-model="user.date_of_birth" class="form-control" required>
-                              <small class="text-danger">{{ errors.date_of_birth }}</small>
-                          </div>
-                      </div>
-                  </div>
-              </div>
+  <div v-if="payment" class="container rounded bg-white mt-5 mb-5">
+    <form @submit.prevent="updatePaymentProfile">
+      <div class="row">
+        <div class="col-md-4 border-right">
+          <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+            <button type="submit" class="btn btn-purple">
+              <i class="fas fa-cog"></i> Update
+            </button>
+            <img class="mt-3" width="300px" height="auto" v-if="payment && payment.photo" :src="payment.photo" alt="payment Image">
+          <img class="mt-3" width="300px" height="auto" v-else :src="require('@/assets/no-profile.png')" alt="No Profile Image">
+          <br>
+          <span class="font-weight-bold">{{ getFullName(payment.student.user) }}</span>
+          <span class="font-weight-bold">{{ getFullName(payment.student) }}</span>
+          </div>
+        </div>
+        <div class="col-md-4 border-right">
+          <div class="p-3 py-5">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h4 class="text-right">Detail</h4>
             </div>
-            <div class="col-md-4">
-              <div class="p-3 py-5">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h4 class="text-right">Others</h4>
+            <div class="row mt-2">
+              <div class="col-md-12">
+                <div class="info">
+                  <label class="labels font-weight-bold">Date</label>
+                  <input type="date" v-model="payment.date" class="form-control" required>
+                  <small class="text-danger">{{ errors.date }}</small>
                 </div>
-              <div class="col-md-12">
-                          <div class="info">
-                              <label class="labels font-weight-bold">Gender</label>
-                              <select class="form-control" v-model="user.gender" required>
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
-                              </select>
-                              <small class="text-danger">{{ errors.gender }}</small>
-                          </div>
-                      </div>
-              <div class="col-md-12">
-                  <div class="info">
-                      <label class="labels font-weight-bold">Neighborhood</label>
-                      <input type="text" v-model="user.neighborhood" class="form-control" required>
-                      <small class="text-danger">{{ errors.neighborhood }}</small>
-                  </div>
-              </div>
-              <div class="col-md-12">
-                  <div class="info">
-                      <label class="labels font-weight-bold">Street</label>
-                      <input type="text" v-model="user.street" class="form-control" required>
-                      <small class="text-danger">{{ errors.street }}</small>
-                  </div>
-              </div>
-              <div class="col-md-12">
-                  <div class="info">
-                      <label class="labels font-weight-bold">Phone number</label>
-                      <input type="tel" v-model="user.phone_number" class="form-control" required>
-                      <small class="text-danger">{{ errors.phone_number }}</small>
-                  </div>
-              </div>
-              <div class="col-md-12">
-                  <div class="info">
-                      <label class="labels font-weight-bold">Role</label>
-                      <select class="form-control" v-model="user.role" required>
-                          <option value="Parent">Parent</option>
-                          <option value="Administrator">Administrator</option>
-                      </select>
-                      <small class="text-danger">{{ errors.role }}</small>
-                  </div>
               </div>
               <div class="col-md-12">
                 <div class="info">
-                  <label class="labels font-weight-bold">Status</label>
-                  <select class="form-control" v-model="user.status" required>
-                    <option value=0>Active</option>
-                    <option value=1>Inactive</option>
+                  <label class="labels font-weight-bold">Amount</label>
+                  <input type="text" v-model="payment.amount" class="form-control" required>
+                  <small class="text-danger">{{ errors.amount }}</small>
+                </div>
+              </div>
+              <div class="col-md-12">
+                    <div class="info">
+                        <label class="labels font-weight-bold">Photo</label>
+                        <input type="file" v-on:change="onFileChange" class="form-control" accept="image/*">
+                    </div>
+                </div>
+              <div class="col-md-12">
+                <div class="info">
+                  <label class="labels font-weight-bold">Verified</label>
+                  <select class="form-control" v-model="payment.verified" required>
+                    <option value="1">Verified</option>
+                    <option value="0">Unverified</option>
                   </select>
-                  <small class="text-danger">{{ errors.status }}</small>
+                  <small class="text-danger">{{ errors.verified }}</small>
                 </div>
               </div>
             </div>
-            </div>
           </div>
-      </form>
+        </div>
+        <div class="col-md-4">
+          <div class="p-3 py-5">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h4 class="text-right">Others</h4>
+            </div>
+            <div class="col-md-12">
+                <div class="info">
+                  <label class="labels font-weight-bold">Student</label>
+                  <input type="text" v-model="payment.student.name" class="form-control" required>
+                  <small class="text-danger">{{ errors.student }}</small>
+                </div>
+              </div>
+              <div class="col-md-12">
+              <div class="info">
+                  <label class="labels font-weight-bold">Note</label>
+                  <textarea class="form-control" v-model="payment.note" rows="4"></textarea>
+                  <small class="text-danger">{{ errors.note }}</small>
+              </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <router-link :to="{ path: '/listPayment' }" class="btn btn-blue position-fixed bottom-0 end-0 m-3">
+    <i class="fas fa-arrow-left"></i> List of payments
+  </router-link>
   </div>
 </template>
 
-  
 <script>
-import { getUserById, updateUser, getFullName } from '@/services/dataService';
+import { getPaymentById, updatePayment, getFullName } from '@/services/dataService';
 import { showUpdateSuccessMessage, showErrorMessage } from '@/services/alerts';
+
 export default {
   data() {
     return {
-      user: null,
+      payment: null,
       loading: false,
       errors: {}
     };
   },
   mounted() {
-    const userId = this.$route.params.id;
-    if (userId) {
-      this.getUser(userId);
+    const paymentId = this.$route.params.id;
+    if (paymentId) {
+      this.getPayment(paymentId);
     } else {
-      console.error('No user ID provided.');
+      console.error('No payment ID provided.');
     }
   },
   methods: {
-    getUser(userId) {
+    getPayment(paymentId) {
       this.loading = true;
-      getUserById(userId)
-        .then(user => {
-          this.user = user;
+      getPaymentById(paymentId)
+        .then(payment => {
+          this.payment = payment;
           this.loading = false;
         })
         .catch(error => {
-          console.error('Error fetching user:', error);
+          console.error('Error fetching payment:', error);
           this.loading = false;
         });
     },
-    updateUserProfile() {
-    this.loading = true;
-    this.clearErrors();
-    const userId = this.user.id;
-    const userData = {
-      name: this.user.name,
-      role: this.user.role,
-      first_surname: this.user.first_surname,
-      second_surname: this.user.second_surname,
-      date_of_birth: this.user.date_of_birth,
-      gender: this.user.gender,
-      neighborhood: this.user.neighborhood,
-      street: this.user.street,
-      phone_number: this.user.phone_number,
-      photo: this.user.photo,
-      status: this.user.status
-    };
-    updateUser(userId, userData)
-      .then(response => {
-        console.log(userData);
-        showUpdateSuccessMessage(this.getFullName(this.user));
-        this.$router.push({ name: 'parentShow' });
-      })
-      .catch(error => {
-        showErrorMessage('Error updating user. Please try again later.');
-        console.error('Error updating user:', error);
-        console.log(userData);
+    updateStudentProfile() {
+        this.loading = true;
         this.clearErrors();
-         // Verificar si la respuesta contiene datos de error
+        const studentId = this.student.id;
+        const studentData = {
+          name: this.student.name,
+          first_surname: this.student.first_surname,
+          second_surname: this.student.second_surname,
+          date_of_birth: this.student.date_of_birth,
+          gender: this.student.gender,
+          blood_type: this.student.blood_type,
+          curp: this.student.curp,
+          photo: this.student.photo,
+          note: this.student.note,
+          status: this.student.status,
+          grade: this.student.grade,
+          photo: null,
+          birth_certificate: null,
+          user_id: this.student.user_id
+        };
+        updateStudent(studentId, studentData)
+          .then(response => {
+            console.log(studentData);
+            showUpdateSuccessMessage(this.getFullName(this.student));
+            this.$router.push({ name: 'studentActiveShow' });
+          })
+          .catch(error => {
+            showErrorMessage('Error updating student. Please try again later.');
+            console.error('Error updating student:', error);
+            this.clearErrors();
+    
+    // Verificar si la respuesta contiene datos de error
     if (error.response && error.response.data && error.response.data.errors) {
         const validationErrors = error.response.data.errors;
         
@@ -200,10 +165,12 @@ export default {
                 console.log('Error Message:', errorMessage);
             }
         });
-      }
-      });
-    },
-    clearErrors() {
+      }});
+      },
+      handleFileUpload(event) {
+        const file = event.target.files[0];
+        },
+        clearErrors() {
         for (let field in this.errors) {
           this.errors[field] = null;
         }

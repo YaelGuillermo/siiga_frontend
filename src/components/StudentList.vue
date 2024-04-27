@@ -2,7 +2,7 @@
   <div>
     <div class="d-flex justify-content-between align-items-center">
     <h1>{{ title }}</h1>
-    <router-link :to="{ path: '/registerPayment' }" class="btn">
+    <router-link :to="{ path: '/registerStudent' }" class="btn">
       <i class="fas fa-pencil-alt"></i> Create
     </router-link>
     </div>
@@ -21,12 +21,14 @@
           <th>Gender</th>
           <th>CURP</th>
           <th>Parent</th>
+          <th></th>
           <th>Actions</th>
+          <th></th>
         </tr>
       </thead>
       <tbody class="table-group-divider">
         <tr v-if="loading">
-          <td colspan="8">
+          <td colspan="10">
             <h3>Loading ...</h3>
           </td>
         </tr>
@@ -45,9 +47,13 @@
               <router-link :to="{ name: 'studentView', params: { id: student.id }}" class="btn btn-sm" role="button">
                 <i class="fas fa-eye"></i> Detail
               </router-link>
+            </td>
+            <td>
               <router-link :to="{ name: 'studentEdit', params: { id: student.id }}" class="btn btn-sm" role="button">
                 <i class="fas fa-edit"></i> Edit
               </router-link>
+            </td>
+            <td>
               <router-link :to="{ name: 'studentDelete', params: { id: student.id }}" class="btn btn-sm" role="button">
                 <i class="fas fa-trash"></i> Delete
               </router-link>
@@ -90,7 +96,7 @@ import { getStudents, getFullName, calculateAge } from '@/services/dataService';
 
 export default {
   props: {
-    status: Number,
+    status: String,
     title: String
   },
   data() {
@@ -119,7 +125,7 @@ export default {
     filteredStudents() {
       if (!this.students) return [];
       return this.students.filter(student => {
-        return student.status === this.status &&
+        return student.status == this.status &&
                (student.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
                 student.first_surname.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
                 student.second_surname.toLowerCase().includes(this.searchQuery.toLowerCase()));

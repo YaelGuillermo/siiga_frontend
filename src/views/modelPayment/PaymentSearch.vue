@@ -29,7 +29,7 @@
           <hr class="my-3"> 
           <div class="info">
             <label class="labels font-weight-bold">Date</label>
-            <span>{{ payment ? formatDate(payment.payment_date) : 'N/A' }}</span>
+            <span>{{ payment ? formatDate(payment.date) : 'N/A' }}</span>
           </div>
           <div class="info">
             <label class="labels font-weight-bold">Amount</label>
@@ -120,3 +120,5 @@ export default {
   }
 };
 </script>
+
+<style src="../styles/profile.css"></style>

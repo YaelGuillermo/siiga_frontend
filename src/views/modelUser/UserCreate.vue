@@ -29,35 +29,35 @@
                 <div class="col-md-12">
                   <div class="info">
                     <label class="labels font-weight-bold">Name</label>
-                    <input type="text" v-model="user.name" class="form-control" placeholder="Gonzalez" required>
+                    <input type="text" v-model="user.name" class="form-control" placeholder="Name" required>
                     <small class="text-danger">{{ errors.name }}</small>
                   </div>
                 </div>
                 <div class="col-md-12">
                   <div class="info">
                     <label class="labels font-weight-bold">First Surname</label>
-                    <input type="text" v-model="user.first_surname" class="form-control" placeholder="Gonzalez" required>
+                    <input type="text" v-model="user.first_surname" class="form-control" placeholder="First Surname" required>
                     <small class="text-danger">{{ errors.first_surname }}</small>
                   </div>
                 </div>
                 <div class="col-md-12">
                   <div class="info">
                     <label class="labels font-weight-bold">Second Surname</label>
-                    <input type="text" v-model="user.second_surname" class="form-control" placeholder="Gonzalez" required>
+                    <input type="text" v-model="user.second_surname" class="form-control" placeholder="Second Surname" required>
                     <small class="text-danger">{{ errors.second_surname }}</small>
                   </div>
                 </div>
                 <div class="col-md-12">
                   <div class="info">
                     <label class="labels font-weight-bold">Date of Birth</label>
-                    <input type="date" v-model="user.date_of_birth" class="form-control" placeholder="1/1/2000" required>
+                    <input type="date" v-model="user.date_of_birth" class="form-control" required>
                     <small class="text-danger">{{ errors.date_of_birth }}</small>
                   </div>
                 </div>
                 <div class="col-md-12">
                     <div class="info">
                         <label class="labels font-weight-bold">Email</label>
-                        <input type="email" v-model="user.email" class="form-control" placeholder="gonzalez@gmail.com" required>
+                        <input type="email" v-model="user.email" class="form-control" placeholder="Email" required>
                         <small class="text-danger">{{ errors.email }}</small>
                     </div>
                     </div>
@@ -65,7 +65,7 @@
                     <div class="col-md-12">
                     <div class="info">
                         <label class="labels font-weight-bold">Password</label>
-                        <input type="password" v-model="user.password" class="form-control" placeholder="12345678" required>
+                        <input type="password" v-model="user.password" class="form-control" placeholder="Password" required>
                         <small class="text-danger">{{ errors.email }}</small>
                     </div>
                     </div>
@@ -80,9 +80,9 @@
               <div class="col-md-12">
                 <div class="info">
                   <label class="labels font-weight-bold">Gender</label>
-                  <select class="form-control" v-model="user.gender" placeholder="Male" required>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
+                  <select class="form-control" v-model="user.gender" required>
+                    <option value="M">Male</option>
+                    <option value="F">Female</option>
                   </select>
                   <small class="text-danger">{{ errors.gender }}</small>
                 </div>
@@ -90,30 +90,30 @@
               <div class="col-md-12">
                 <div class="info">
                   <label class="labels font-weight-bold">Neighborhood</label>
-                  <input type="text" v-model="user.neighborhood" class="form-control" placeholder="Gonzalez" required>
+                  <input type="text" v-model="user.neighborhood" class="form-control" placeholder="Neighborhood" required>
                   <small class="text-danger">{{ errors.neighborhood }}</small>
                 </div>
               </div>
               <div class="col-md-12">
                 <div class="info">
                   <label class="labels font-weight-bold">Street</label>
-                  <input type="text" v-model="user.street" class="form-control" placeholder="Gonzalez" required>
+                  <input type="text" v-model="user.street" class="form-control" placeholder="Street" required>
                   <small class="text-danger">{{ errors.street }}</small>
                 </div>
               </div>
               <div class="col-md-12">
                 <div class="info">
                   <label class="labels font-weight-bold">Phone Number</label>
-                  <input type="tel" v-model="user.phone_number" class="form-control" placeholder="6645425622" required>
+                  <input type="tel" v-model="user.phone_number" class="form-control" placeholder="Phone number" required>
                   <small class="text-danger">{{ errors.phone_number }}</small>
                 </div>
               </div>
               <div class="col-md-12">
                 <div class="info">
                   <label class="labels font-weight-bold">Role</label>
-                  <select class="form-control" v-model="user.role" placeholder="Parent" required>
-                    <option value="Parent">Parent</option>
-                    <option value="Administrator">Administrator</option>
+                  <select class="form-control" v-model="user.role" required>
+                    <option value="P">Parent</option>
+                    <option value="A">Administrator</option>
                   </select>
                   <small class="text-danger">{{ errors.role }}</small>
                 </div>
@@ -121,7 +121,7 @@
               <div class="col-md-12">
                 <div class="info">
                   <label class="labels font-weight-bold">Status</label>
-                  <select class="form-control" v-model="user.status" placeholder="Active" required>
+                  <select class="form-control" v-model="user.status" required>
                     <option value="0">Active</option>
                     <option value="1">Inactive</option>
                   </select>
@@ -132,6 +132,9 @@
           </div>
         </div>
       </form>
+      <router-link :to="user.role == 'P' ? { name: 'parentShow' } : { name: 'administratorShow' }" class="btn btn-blue position-fixed bottom-0 end-0 m-3">
+      <i class="fas fa-arrow-left"></i> {{ user.role == 'P' ? 'List of Parents' : 'List of Administrators' }}
+    </router-link>
     </div>
   </template>
   

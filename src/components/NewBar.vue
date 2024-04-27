@@ -26,27 +26,12 @@
                 </li> -->
                 <li>
     <router-link :to="{ name: 'studentActiveShow' }" class="sidebar-link">
-        <i class="fas fa-user-graduate"></i> Students
+        <i class="fas fa-user"></i> My Profile
     </router-link>
 </li>
 <li>
     <router-link :to="{ name: 'studentInactiveShow' }" class="sidebar-link">
-        <i class="fas fa-file-alt"></i> Requests
-    </router-link>
-</li>
-<li>
-    <router-link :to="{ name: 'administratorShow' }" class="sidebar-link">
-        <i class="fas fa-user-tie"></i> Admins
-    </router-link>
-</li>
-<li>
-    <router-link :to="{ name: 'parentShow' }" class="sidebar-link">
-        <i class="fas fa-user-friends"></i> Parents
-    </router-link>
-</li>
-<li>
-    <router-link :to="{ name: 'paymentShow' }" class="sidebar-link">
-        <i class="fas fa-money-bill-wave"></i> Payments
+        <i class="fas fa-child"></i> Children
     </router-link>
 </li>
 
@@ -74,9 +59,6 @@
                     </button>
 
                     <ul class="nav navbar-nav">
-                        <li class="nav-item active">
-                                <a class="nav-link" href="#">My Profile</a>
-                            </li>
                             <li class="nav-item active">
                                 <a class="nav-link" href="#">Sign Out</a>
                             </li>

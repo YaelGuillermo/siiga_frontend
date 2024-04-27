@@ -21,12 +21,14 @@
             <th>Gender</th>
             <th>Email</th>
             <th>Cell Phone</th>
+            <th></th>
             <th>Actions</th>
+            <th></th>
           </tr>
         </thead>
         <tbody class="table-group-divider">
           <tr v-if="loading">
-            <td colspan="8">
+            <td colspan="10">
               <h3>Loading ...</h3>
             </td>
           </tr>
@@ -38,16 +40,20 @@
             </td>
             <td>{{ user.name }} {{ user.first_surname }} {{ user.second_surname }}</td>
             <td>{{ calculateAge(user.date_of_birth) }}</td>
-            <td>{{ user.gender }}</td>
+            <td>{{ formatGender(user.gender) }}</td>
             <td>{{ user.email }}</td>
             <td>{{ filterPhoneNumber(user.phone_number) }}</td>
             <td>
               <router-link :to="{ name: 'userView', params: { id: user.id }}" class="btn btn-purple btn-sm" role="button">
                 <i class="fas fa-eye"></i> Detail
               </router-link>
+            </td>
+            <td>
               <router-link :to="{ name: 'userEdit', params: { id: user.id }}" class="btn btn-purple btn-sm" role="button">
                 <i class="fas fa-edit"></i> Edit
               </router-link>
+            </td>
+            <td>
               <router-link :to="{ name: 'userDelete', params: { id: user.id }}" class="btn btn-purple btn-sm" role="button">
                 <i class="fas fa-trash"></i> Delete
               </router-link>
@@ -86,7 +92,7 @@
   </template>
   
   <script>
-  import { getUsers, calculateAge, filterPhoneNumber } from '@/services/dataService';
+  import { getUsers, calculateAge, filterPhoneNumber, formatGender } from '@/services/dataService';
   
   export default {
     props: {
@@ -153,7 +159,8 @@
         this.currentPage = pageNumber;
       },
       calculateAge,
-      filterPhoneNumber
+      filterPhoneNumber,
+      formatGender
     }
   };
   </script>

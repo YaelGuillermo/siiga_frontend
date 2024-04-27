@@ -19,9 +19,8 @@
           <div class="d-flex justify-content-between align-items-center mb-3">
             <h4 class="text-right">Student's Child</h4>
           </div>
-          <div v-if="students">
             <div v-for="(student, index) in user.students" :key="student.id">
-              <div v-if="student.status == 1">
+              <div v-if="student.status == 'Active'">
                 <hr class="my-3"> 
               <div class="info">
                 <label class="labels font-weight-bold">Name</label>
@@ -40,13 +39,15 @@
               </div>
               </div>
             </div>
-          </div>
           <div v-if="user.students == 0 || user.students.status == 0">
             None
           </div>
         </div>
       </div>
         </div>
+        <router-link :to="user.role == 'P' ? { name: 'parentShow' } : { name: 'administratorShow' }" class="btn btn-blue position-fixed bottom-0 end-0 m-3">
+      <i class="fas fa-arrow-left"></i> {{ user.role == 'P' ? 'List of Parents' : 'List of Administrators' }}
+    </router-link>
     </div>
 </template>
   

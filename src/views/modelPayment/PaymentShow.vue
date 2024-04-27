@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="d-flex justify-content-between align-items-center">
-  <h1> List of Payment </h1>
+  <h1> List of Payments </h1>
   <router-link :to="{ path: '/registerPayment' }" class="btn">
     <i class="fas fa-pencil-alt"></i> Create
   </router-link>
@@ -21,12 +21,14 @@
           <th>Mounth</th>
           <th></th>
           <th>Parent</th>
+          <th></th>
           <th>Actions</th>
+          <th></th>
         </tr>
       </thead>
       <tbody class="table-group-divider">
         <tr v-if="loading">
-          <td colspan="8">
+          <td colspan="10">
             <h3>Loading ...</h3>
           </td>
         </tr>
@@ -37,7 +39,7 @@
           </td>
           <td>{{ getFullName(payment.student) }}</td>
           <td> {{ formatCurrency(payment.amount) }} </td>
-          <td> {{ formatDate(payment.payment_date) }} </td>
+          <td> {{ formatDate(payment.date) }} </td>
           <td>
             <img :src="payment.student.user.photo || require('@/assets/no-profile.png')" alt="User Photo" class="rounded-circle img-thumbnail" style="width: 38px; height: 38px;">
           </td>
@@ -46,9 +48,13 @@
             <router-link :to="{ name: 'paymentView', params: { id: payment.id }}" class="btn btn-sm" role="button">
               <i class="fas fa-eye"></i> Detail
             </router-link>
+          </td>
+          <td>
             <router-link :to="{ name: 'paymentEdit', params: { id: payment.id }}" class="btn btn-sm" role="button">
               <i class="fas fa-edit"></i> Edit
             </router-link>
+          </td>
+          <td>
             <router-link :to="{ name: 'paymentDelete', params: { id: payment.id }}" class="btn btn-sm" role="button">
               <i class="fas fa-trash"></i> Delete
             </router-link>
@@ -122,7 +128,7 @@ export default {
                 payment.student.user.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
                 payment.student.user.first_surname.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
                 payment.student.user.second_surname.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-                this.formatDate(payment.payment_date).toLowerCase().includes(this.searchQuery.toLowerCase()));
+                this.formatDate(payment.date).toLowerCase().includes(this.searchQuery.toLowerCase()));
       });
     },
     displayedPayments() {

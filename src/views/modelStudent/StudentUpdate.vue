@@ -81,8 +81,8 @@
                 <div class="info">
                   <label class="labels font-weight-bold">Gender</label>
                   <select class="form-control" v-model="student.gender" required>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
+                    <option value="M">Male</option>
+                    <option value="F">Female</option>
                   </select>
                   <small class="text-danger">{{ errors.gender }}</small>
                 </div>
@@ -117,10 +117,11 @@
                     </div>
                 </div>
                 <div class="col-md-12">
-                    <div class="info">
-                        <label class="labels font-weight-bold">Payment Order</label>
-                        <input type="file" ref="paymentOrder" @change="handleFileUpload($event)" class="form-control" accept="image/*">
-                    </div>
+                  <div class="info">
+                    <label class="labels font-weight-bold">Parent</label>
+                    <input type="text" v-model="student.user.name" class="form-control" required>
+                    <small class="text-danger">{{ errors.user_id }}</small>
+                  </div>
                 </div>
                 <div class="col-md-12">
                 <div class="info">
@@ -135,10 +136,10 @@
             </div>
           </div>
         </div>
-        <router-link :to="{ name: 'studentActiveShow'}" class="btn btn-blue position-fixed bottom-0 end-0 m-3">
-          <i class="fas fa-arrow-left"></i> Student list
-        </router-link>
       </form>
+      <router-link :to="student.status != 'Active' ? { name: 'studentInactiveShow' } : { name: 'studentActiveShow' }" class="btn btn-blue position-fixed bottom-0 end-0 m-3">
+      <i class="fas fa-arrow-left"></i> {{ student.status != 'Active' ? 'Student Requests' : 'Student List' }}
+    </router-link>
     </div>
   </template>
   
@@ -239,6 +240,4 @@
     }
   };
   </script>
-  
-  <style src="../styles/profile.css"></style>
   

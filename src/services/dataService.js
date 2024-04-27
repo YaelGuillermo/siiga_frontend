@@ -87,12 +87,46 @@ export const formatDate = (dateString) => {
     return `${month} ${day}, ${year}`;
 };
 
+export const formatStatus = (status) => {
+    if (status == 0) {
+        return {
+            text: 'Under review',
+            color: 'orange',
+            icon: 'fa fa-exclamation-circle'
+        };
+    } else if (status == 1) {
+        return {
+            text: 'Active',
+            color: 'green',
+            icon: 'fa fa-check-circle'
+        };
+    } else {
+        return {
+            text: 'Unknown',
+            color: 'black',
+            icon: 'fa fa-question-circle'
+        };
+    }
+};
+
+
 export const formatCurrency = (amount) => {
     const formattedAmount = parseFloat(amount).toFixed(2);
     const parts = formattedAmount.toString().split('.');
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     return `$${parts.join('.')} MXN`;
 };
+
+export const formatGender = (gender) => {
+    if (gender.toUpperCase() === 'F') {
+        return 'Female';
+    } else if (gender.toUpperCase() === 'M') {
+        return 'Male';
+    } else {
+        return 'Unknown';
+    }
+};
+
 
 export const filterPhoneNumber = (phoneNumber) => {
     const cleanedNumber = phoneNumber.replace(/\D/g, '');

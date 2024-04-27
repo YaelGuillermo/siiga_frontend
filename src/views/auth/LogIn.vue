@@ -1,13 +1,13 @@
 <template>
-    <section>
   <div>
     <div class="row d-flex align-items-center justify-content-center h-100">
-      <div class="col-md-8 col-lg-7 col-xl-6">
+      <div class="col-md-8 col-lg-7 col-xl-6 text-center mb-4">
         <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
           class="img-fluid" alt="Phone image">
       </div>
       <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
         <form>
+          <h2 class="text-center mb-4">Login</h2>
           <!-- Email input -->
           <div class="form-outline mb-4">
             <input type="email" id="form1Example13" class="form-control form-control-lg" />
@@ -15,48 +15,60 @@
           </div>
 
           <!-- Password input -->
-          <div class="form-outline mb-4">
+          <div class="form-outline mb-2">
             <input type="password" id="form1Example23" class="form-control form-control-lg" />
             <label class="form-label" for="form1Example23">Password</label>
           </div>
 
-          <div class="d-flex justify-content-around align-items-center mb-4">
-            <!-- Checkbox -->
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="form1Example3" checked />
-              <label class="form-check-label" for="form1Example3"> Remember me </label>
-            </div>
-            <a href="#!">Forgot password?</a>
+          <!-- Forgot password -->
+          <!-- Register button -->
+          <div class="mt-1 text-center mb-4">
+            <p class="mb-0">Forgot your password? <a href="#!" class="text-decoration-none">Recover it!</a></p>
           </div>
 
           <!-- Submit button -->
-          <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
+          <div class="text-center mb-4">
+            <button type="submit" class="btn btn-primary btn-lg" style="background-color: #3F3D56;">Sign in</button>
+          </div>
 
           <div class="divider d-flex align-items-center my-4">
             <p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
           </div>
 
-          <a class="btn btn-primary btn-lg btn-block" style="background-color: #dd4b39" href="#!"
-    role="button">
-    <i class="fab fa-google me-2"></i>Continue with Goog
-</a>
+          <div class="row justify-content-center">
+            <!-- Continue with Google -->
+            <div class="col-6 mb-3 text-center">
+              <a class="btn btn-primary btn-lg btn-block" style="background-color: #dd4b39" href="#!"
+                role="button">
+                <i class="fab fa-google me-2"></i>Continue with Google
+              </a>
+            </div>
 
+            <!-- Register Now -->
+            <div class="col-6 text-center">
+              <a class="btn btn-primary btn-lg btn-block" style="background-color: #402368" href="#!"
+                role="button">
+                <i class="fas fa-user-plus me-2" style="color: #ffffff;"></i> Register Now
+              </a>
+            </div>
+          </div>
         </form>
       </div>
     </div>
   </div>
-</section>
 </template>
 
+
 <style>
-.divider:after,
-.divider:before {
-content: "";
-flex: 1;
-height: 1px;
-background: #eee;
-}
+  .divider:after,
+  .divider:before {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #eee;
+  }
 </style>
+
 
 <!--
 

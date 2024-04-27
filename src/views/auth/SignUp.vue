@@ -1,53 +1,73 @@
 <template>
-    <section>
-      <div>
-        <div class="row d-flex align-items-center justify-content-center h-100">
-          <div class="col-md-8 col-lg-7 col-xl-6">
-            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
-              class="img-fluid" alt="Phone image">
-          </div>
-          <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-            <form>
-              <!-- Email input -->
-              <div class="form-outline mb-4">
-                <input type="email" id="form1Example13" class="form-control form-control-lg" />
-                <label class="form-label" for="form1Example13">Email address</label>
-              </div>
+    <div>
+      <div class="row d-flex align-items-center justify-content-center h-100">
+        <div class="col-md-8 col-lg-7 col-xl-6 text-center mb-4">
+          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+            class="img-fluid" alt="Phone image">
+        </div>
+        <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+          <form>
+            <h2 class="text-center mb-4">Sign up</h2>
+            <!-- Email input -->
+            <div class="form-outline mb-4">
+              <input type="email" id="form1Example13" class="form-control form-control-lg" />
+              <label class="form-label" for="form1Example13">Email address</label>
+            </div>
   
-              <!-- Password input -->
-              <div class="form-outline mb-4">
-                <input type="password" id="form1Example23" class="form-control form-control-lg" />
-                <label class="form-label" for="form1Example23">Password</label>
-              </div>
+            <!-- Password input -->
+            <div class="form-outline mb-2">
+              <input type="password" id="form1Example23" class="form-control form-control-lg" />
+              <label class="form-label" for="form1Example23">Password</label>
+            </div>
   
-              <div class="d-flex justify-content-around align-items-center mb-4">
-                <!-- Checkbox -->
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="" id="form1Example3" checked />
-                  <label class="form-check-label" for="form1Example3"> Remember me </label>
-                </div>
-                <a href="#!">Forgot password?</a>
-              </div>
+            <!-- Confirm Password input -->
+            <div class="form-outline mb-2">
+              <input type="password" id="form1Example24" class="form-control form-control-lg" />
+              <label class="form-label" for="form1Example24">Confirm Password</label>
+            </div>
   
-              <!-- Submit button -->
-              <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
+            <!-- Submit button -->
+            <div class="text-center mb-4">
+              <button type="submit" class="btn btn-primary btn-lg" style="background-color: #3F3D56;">Sign up</button>
+            </div>
   
-              <div class="divider d-flex align-items-center my-4">
-                <p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
-              </div>
+            <div class="divider d-flex align-items-center my-4">
+              <p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
+            </div>
   
-              <!-- Sign in with Google button -->
+            <div class="row justify-content-center">
+            <!-- Continue with Google -->
+            <div class="col-6 mb-3 text-center">
               <a class="btn btn-primary btn-lg btn-block" style="background-color: #dd4b39" href="#!"
                 role="button">
                 <i class="fab fa-google me-2"></i>Continue with Google
               </a>
-  
-            </form>
+            </div>
+
+            <!-- Register Now -->
+            <div class="col-6 text-center">
+              <a class="btn btn-primary btn-lg btn-block" style="background-color: #402368" href="#!"
+                role="button">
+                <i class="fas fa-user" style="color: #ffffff;"></i> Sign in
+              </a>
+            </div>
           </div>
+          </form>
         </div>
       </div>
-    </section>
+    </div>
   </template>
+  
+  <style>
+    .divider:after,
+    .divider:before {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: #eee;
+    }
+  </style>
+  
   
 <!--
 <script>
@@ -135,8 +155,8 @@
                             <div class="login__field">
                                 <label for="text" class="login__label">Gender</label>
                                 <select class="login__input" v-model="gender" required>
-                                    <option value="Male">Male</option>
-                                    <option value="Female">Female</option>
+                                    <option value="M">Male</option>
+                                    <option value="F">Female</option>
                                 </select>
                             </div>
 

@@ -66,8 +66,8 @@
                           <div class="info">
                               <label class="labels font-weight-bold">Gender</label>
                               <select class="form-control" v-model="user.gender" required>
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
+                                <option value="M">Male</option>
+                                <option value="F">Female</option>
                               </select>
                               <small class="text-danger">{{ errors.gender }}</small>
                           </div>
@@ -97,8 +97,8 @@
                   <div class="info">
                       <label class="labels font-weight-bold">Role</label>
                       <select class="form-control" v-model="user.role" required>
-                          <option value="Parent">Parent</option>
-                          <option value="Administrator">Administrator</option>
+                          <option value="P">Parent</option>
+                          <option value="A">Administrator</option>
                       </select>
                       <small class="text-danger">{{ errors.role }}</small>
                   </div>
@@ -117,6 +117,9 @@
             </div>
           </div>
       </form>
+      <router-link :to="user.role == 'P' ? { name: 'parentShow' } : { name: 'administratorShow' }" class="btn btn-blue position-fixed bottom-0 end-0 m-3">
+      <i class="fas fa-arrow-left"></i> {{ user.role == 'P' ? 'List of Parents' : 'List of Administrators' }}
+    </router-link>
   </div>
 </template>
 

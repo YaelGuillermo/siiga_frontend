@@ -55,14 +55,36 @@ body {
     border: solid 1px #BA68C8
 }
 
-.btn-purple {
-    background-color: #BA68C8;
-    border-color: #BA68C8;
-    color: white; 
-  }
+.btn-v {
+    background-color: #2d184b; /* Fondo transparente */
+    border-radius: 9ch; /* Hace el botón circular */
+    border-color: 2px solid #2d184b; /* Color del borde */
+    color: white;
+    text-decoration: none; /* Elimina el subrayado del texto */
+    padding: 0.5rem 1rem; /* Ajusta el relleno del botón según sea necesario */
+    display: inline-block; /* Hace que el botón se comporte como un elemento en línea */
+}
 
-  .btn-blue {
-    background-color: #342ab9;
-    border-color: #342ab9;
-    color: white; 
-  }
+.btn-v:hover {
+    background-color: #BA68C8; /* Cambia el color de fondo al hacer hover */
+    border-color: #BA68C8; /* Cambia el color del borde al hacer hover */
+    color: white; /* Cambia el color del texto al hacer hover */
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.p-3.py-5 {
+    background-color: white; /* Establece el color de fondo de los elementos con clase p-3 py-5 a blanco */
+    border-radius: 1ch;
+    margin-bottom: 20px;
+}
+
+
+  .my-3 {
+    border: 2px solid #130a1f; 
+    border-radius: 9ch;
+}

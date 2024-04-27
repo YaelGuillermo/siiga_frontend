@@ -44,9 +44,9 @@
         </div>
         </div>
       </div>
-      <router-link :to="{ name: 'studentActiveShow'}" class="btn btn-blue position-fixed bottom-0 end-0 m-3">
-        <i class="fas fa-arrow-left"></i> Student list
-      </router-link>
+      <router-link :to="student.status != 'Active' ? { name: 'studentInactiveShow' } : { name: 'studentActiveShow' }" class="btn btn-blue position-fixed bottom-0 end-0 m-3">
+      <i class="fas fa-arrow-left"></i> {{ student.status != 'Active' ? 'Student Requests' : 'Student List' }}
+    </router-link>
     </div>
   </template>
   

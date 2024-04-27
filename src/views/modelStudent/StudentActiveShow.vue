@@ -1,6 +1,6 @@
 <template>
   <div>
-    <StudentList title="List of Students" :status="1" />
+    <StudentList title="Student List" :status=status />
   </div>
 </template>
 
@@ -10,6 +10,11 @@ import StudentList from '../../components/StudentList.vue';
 export default {
   components: {
     StudentList
+  },
+  data() {
+    return {
+      status: 'Active'
+    };
   }
 };
 </script>
