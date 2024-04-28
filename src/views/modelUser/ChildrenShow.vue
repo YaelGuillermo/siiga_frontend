@@ -5,8 +5,8 @@
         <div class="p-3 py-5">
           <div class="d-flex justify-content-between align-items-center mb-3">
             <h1>Children</h1>
-            <router-link :to="{ path: '/registerStudent' }" class="btn">
-      <i class="fas fa-pencil-alt"></i> Create another child
+            <router-link :to="{ path: '/registerChildren' }" class="btn">
+      <i class="fas fa-pencil-alt"></i> Create child
     </router-link>
           </div>
           <div >
@@ -88,7 +88,8 @@ export default {
     };
   },
   mounted() {
-    const userId = this.$route.params.id;
+    const userId = this.getUserUUIDFromLocalStorage();
+    console.log(userId);
     if (userId) {
       this.getUser(userId);
     } else {
@@ -96,6 +97,12 @@ export default {
     }
   },
   methods: {
+    getUserUUIDFromLocalStorage() {
+      // Obtiene el UUID del usuario desde el almacenamiento local
+      const user = JSON.parse(localStorage.getItem('user'));
+      console.log(user);
+      return user ? user.id : null;
+    },
     getUser(userId) {
       this.loading = true;
       getUserById(userId)

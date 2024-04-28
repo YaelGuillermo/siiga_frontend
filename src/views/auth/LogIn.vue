@@ -6,18 +6,18 @@
           class="img-fluid" alt="Phone image">
       </div>
       <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-        <form>
+        <form @submit.prevent="login"> 
           <h2 class="text-center mb-4">Login</h2>
           <!-- Email input -->
           <div class="form-outline mb-4">
-            <input type="email" id="form1Example13" class="form-control form-control-lg" />
-            <label class="form-label" for="form1Example13">Email address</label>
+            <input type="email" v-model="email" class="form-control form-control-lg" placeholder="email" required />
+              <label class="form-label">Email address</label>
           </div>
 
           <!-- Password input -->
           <div class="form-outline mb-2">
-            <input type="password" id="form1Example23" class="form-control form-control-lg" />
-            <label class="form-label" for="form1Example23">Password</label>
+            <input type="password" v-model="password" class="form-control form-control-lg" placeholder="password" required />
+            <label class="form-label">Password</label>
           </div>
 
           <!-- Forgot password -->
@@ -69,52 +69,45 @@
   }
 </style>
 
+<script>
+import axios from 'axios';
 
-<!--
+export default {
+  data() {
+    return {
+      email: '',
+      password: '',
+      errorMessage: ''
+    };
+  },
+  methods: {
+    async login() {
+      try {
+        const response = await axios.post('http://siiga_backend.test/api/v1/login', {
+          email: this.email,
+          password: this.password
+        });
 
-
-<template>
-    <div class="container">
-        <h2 class="title">Sign in</h2>
-        <div class="screen">
-            <div class="screen__content">
-                <form class="login">
-                    <div class="login__field">
-                        <label for="email" class="login__label">Email</label>
-                        <i class="login__icon fas fa-user"></i>
-                        <input type="text" id="email" class="login__input" placeholder="Email">
-                    </div>
-                    <div class="login__field">
-                        <label for="password" class="login__label">Password</label>
-                        <i class="login__icon fas fa-lock"></i>
-                        <input type="password" id="password" class="login__input" placeholder="Password">
-                    </div>
-                    <button class="button login__submit">
-                        <span class="button__text">Log In Now</span>
-                        <i class="button__icon fas fa-chevron-right"></i>
-                    </button>   
-                    <div class="signup-prompt">
-                        <p>Don´t have an account? <a href="#">Sign Up</a></p>
-                    </div>             
-                </form>
-                <div class="social-login">
-                    <h3>log in via</h3>
-                    <div class="social-icons">
-                        <a href="#" class="social-login__icon fab fa-instagram"></a>
-                        <a href="#" class="social-login__icon fab fa-facebook"></a>
-                        <a href="#" class="social-login__icon fab fa-twitter"></a>
-                    </div>
-                </div>
-            </div>
-            <div class="screen__background">
-                <span class="screen__background__shape screen__background__shape4"></span>
-                <span class="screen__background__shape screen__background__shape3"></span>        
-                <span class="screen__background__shape screen__background__shape2"></span>
-                <span class="screen__background__shape screen__background__shape1"></span>
-            </div>      
-        </div>
-    </div>
-</template>
-
-<style src="../styles/auth.css"></style>
--->
+        // Guarda los datos del usuario en el almacenamiento local
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+        
+        // Verifica el rol del usuario
+        const userRole = response.data.user.role;
+        console.log(userRole);
+        // Redirige al usuario según su rol
+        if (userRole == 'A') {
+          this.$router.push('/listAdministrator');
+        } else if (userRole == 'P') {
+          this.$router.push('/home');
+        } else {
+          // Redirige a una página por defecto si el rol no está definido
+          this.$router.push('/');
+        }
+      } catch (error) {
+        // Si la solicitud falla, muestra un mensaje de error
+        this.errorMessage = error.response.data.error;
+      }
+    }
+  }
+}
+</script>

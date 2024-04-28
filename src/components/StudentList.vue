@@ -40,7 +40,7 @@
             </td>
             <td>{{ getFullName(student) }}</td>
             <td>{{ calculateAge(student.date_of_birth) }}</td>
-            <td>{{ student.gender }}</td>
+            <td>{{ formatGender(student.gender) }}</td>
             <td>{{ student.curp }}</td>
             <td>{{ getFullName(student.user) }}</td>
             <td>
@@ -92,7 +92,7 @@
 </template>
 
 <script>
-import { getStudents, getFullName, calculateAge } from '@/services/dataService';
+import { getStudents, getFullName, calculateAge, formatGender } from '@/services/dataService';
 
 export default {
   props: {
@@ -157,7 +157,8 @@ export default {
         this.currentPage = pageNumber;
       },
     calculateAge,
-    getFullName
+    getFullName,
+    formatGender
   }
 };
 </script>

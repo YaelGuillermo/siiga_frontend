@@ -30,7 +30,7 @@
     </router-link>
 </li>
 <li>
-    <router-link :to="{ name: 'studentInactiveShow' }" class="sidebar-link">
+    <router-link :to="{ name: 'childrenShow' }" class="sidebar-link">
         <i class="fas fa-child"></i> Children
     </router-link>
 </li>
@@ -59,10 +59,10 @@
                     </button>
 
                     <ul class="nav navbar-nav">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="#">Sign Out</a>
-                            </li>
-                        </ul>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#" id="sign-out-link">Sign Out</a>
+                        </li>
+                    </ul>
                 </div>
             </nav>
             <slot></slot>
@@ -71,14 +71,30 @@
 </template>
 
 <script>
-    $(document).ready(function () {
-        $('#sidebarCollapse').on('click', function () {
-            $('#sidebar').toggleClass('active');
-            // Añade esta línea para agregar o quitar la clase 'active' del botón también
-            $(this).toggleClass('active');
-        });
+  $(document).ready(function() {
+    $('#sign-out-link').click(function(event) {
+      event.preventDefault(); // Evita el comportamiento predeterminado del enlace
+
+      // Realiza una solicitud POST al endpoint de logout
+      $.post('http://siiga_backend.test/api/v1/logout', function(data, status) {
+        // Si la solicitud es exitosa, muestra un mensaje y redirige al usuario
+        alert(data.message);
+        window.location.href = '/'; // Redirige al usuario a la página de inicio u otra página deseada
+      }).fail(function(xhr, status, error) {
+        // Si la solicitud falla, muestra un mensaje de error
+        alert('Error: ' + xhr.responseText);
+      });
     });
+
+    $('#sidebarCollapse').on('click', function() {
+      $('#sidebar').toggleClass('active');
+      // Añade esta línea para agregar o quitar la clase 'active' del botón también
+      $(this).toggleClass('active');
+    });
+  });
 </script>
+
+
 
 
 <style>

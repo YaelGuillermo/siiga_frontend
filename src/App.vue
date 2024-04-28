@@ -1,18 +1,45 @@
 <script>
-  import Bar from '../src/components/Bar.vue'
-  import Bar2 from '../src/components/NewBar.vue'
-  export default {
+import BarForAdmin from '../src/components/BarForAdmin.vue';
+import BarForParent from '../src/components/BarForParent.vue';
+
+export default {
   components: {
-    Bar,
-    Bar2
+    BarForAdmin,
+    BarForParent
+  },
+  data() {
+    return {
+      loggedIn: false,
+      isAdmin: false,
+      isParent: false
+    };
+  },
+  created() {
+    const loggedIn = localStorage.getItem('user');
+    if (loggedIn) {
+      const user = JSON.parse(loggedIn);
+      this.isAdmin = user.role === 'A';
+      this.isParent = user.role === 'P';
+      this.loggedIn = true;
+    }
   }
-}
+};
 </script>
 
 <template>
-  <Bar>
-    <router-view/>
-  </Bar>
+  <template v-if="isAdmin">
+    <BarForAdmin>
+      <router-view />
+    </BarForAdmin>
+  </template>
+  <template v-if="isParent">
+    <BarForParent>
+      <router-view />
+    </BarForParent>
+  </template>
+  <template v-else>
+    <router-view />
+  </template>
 </template>
 
 <style is:global>

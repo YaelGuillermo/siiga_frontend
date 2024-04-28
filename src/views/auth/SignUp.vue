@@ -6,24 +6,26 @@
             class="img-fluid" alt="Phone image">
         </div>
         <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-          <form>
+          <form @submit.prevent="createUser">
             <h2 class="text-center mb-4">Sign up</h2>
             <!-- Email input -->
             <div class="form-outline mb-4">
-              <input type="email" id="form1Example13" class="form-control form-control-lg" />
-              <label class="form-label" for="form1Example13">Email address</label>
+              <small class="text-danger">{{ errors.email }}</small>
+              <input type="email" v-model="user.email" class="form-control form-control-lg" placeholder="email" required />
+              <label class="form-label">Email address</label>
             </div>
   
             <!-- Password input -->
             <div class="form-outline mb-2">
-              <input type="password" id="form1Example23" class="form-control form-control-lg" />
-              <label class="form-label" for="form1Example23">Password</label>
+              <small class="text-danger">{{ errors.password }}</small>
+              <input type="password" v-model="user.password" class="form-control form-control-lg" placeholder="password" required />
+              <label class="form-label">Password</label>
             </div>
   
             <!-- Confirm Password input -->
             <div class="form-outline mb-2">
-              <input type="password" id="form1Example24" class="form-control form-control-lg" />
-              <label class="form-label" for="form1Example24">Confirm Password</label>
+              <input type="password" class="form-control form-control-lg" placeholder="confirm password" required />
+              <label class="form-label">Confirm Password</label>
             </div>
   
             <!-- Submit button -->
@@ -68,6 +70,77 @@
     }
   </style>
   
+  <script>
+  import { createUser } from '@/services/dataService';
+  import { showCreateSuccessMessage, showErrorMessage } from '@/services/alerts';
+  
+  export default {
+    data() {
+      return {
+        user: {
+          name: 'Name',
+          first_surname: 'First surname',
+          second_surname: 'Second surname',
+          date_of_birth: '2000/01/01',
+          gender: 'M',
+          neighborhood: 'neighborhood',
+          street: 'Street',
+          phone_number: '664 000 00 00',
+          photo: '',
+          role: 'P',
+          status: 1,
+          email: '',
+          password: ''
+        },
+        errors: {}
+      };
+    },
+    methods: {
+        createUser() {
+            createUser(this.user)
+                .then(response => {
+                    showCreateSuccessMessage(this.user.email);
+                    this.user = {
+                        name: '',
+                        first_surname: '',
+                        second_surname: '',
+                        date_of_birth: '',
+                        gender: '',
+                        neighborhood: '',
+                        street: '',
+                        phone_number: '',
+                        photo: '',
+                        role: '',
+                        status: '',
+                        email: '',
+                        password: ''
+                    };
+                    this.$router.push({ name: 'login' });
+                })
+                .catch(error => {
+                    showErrorMessage('Error creating user. Please try again later.');
+                    console.error('Error creating user:', error);
+                    this.clearErrors();
+                    if (error.response && error.response.data && error.response.data.errors) {
+                        const validationErrors = error.response.data.errors;
+                        Object.keys(validationErrors).forEach(field => {
+                            if (Array.isArray(validationErrors[field])) {
+                                const errorMessage = validationErrors[field][0];
+                                this.errors[field] = errorMessage;
+                                console.log('Field:', field);
+                                console.log('Error Message:', errorMessage);
+                            }
+                        });
+                    }
+                });
+        },
+        clearErrors() {
+            for (let field in this.errors) {
+                this.errors[field] = null;
+            }
+        },
+    }}
+  </script>
   
 <!--
 <script>
