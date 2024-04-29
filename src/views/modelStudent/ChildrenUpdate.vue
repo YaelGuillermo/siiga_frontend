@@ -11,13 +11,6 @@
             <img class="rounded-circle mt-5" width="150px" v-else :src="require('@/assets/no-profile.png')" alt="No Profile Image">
             <span class="font-weight-bold">{{ getFullName(student) }}</span>
             <br>
-            <div class="col-md-12">
-                <div class="info">
-                    <label class="labels font-weight-bold">Note</label>
-                    <textarea class="form-control" v-model="student.note" rows="4"></textarea>
-                    <small class="text-danger">{{ errors.note }}</small>
-                </div>
-            </div>
             </div>
           </div>
           <div class="col-md-4 border-right">
@@ -117,31 +110,13 @@
                         <input type="file" ref="birthCertificate" @change="handleFileUpload($event)" class="form-control" accept="image/*">
                     </div>
                 </div>
-                <div class="col-md-12">
-                  <div class="info">
-                    <label class="labels font-weight-bold">Parent</label>
-                    <input type="text" v-model="student.user.name" class="form-control" required>
-                    <small class="text-danger">{{ errors.user_id }}</small>
-                  </div>
-                </div>
-                <div class="col-md-12">
-                <div class="info">
-                  <label class="labels font-weight-bold">Status</label>
-                  <select class="form-control" v-model="student.status" required>
-                    <option value='Active'>Active</option>
-                    <option value='Inactive'>Inactive</option>
-                    <option value='Under review'>Under review</option>
-                  </select>
-                  <small class="text-danger">{{ errors.status }}</small>
-                </div>
-              </div>
             </div>
           </div>
         </div>
       </form>
-      <router-link :to="student.status != 'Active' ? { name: 'studentInactiveShow' } : { name: 'studentActiveShow' }" class="btn btn-blue position-fixed bottom-0 end-0 m-3">
-      <i class="fas fa-arrow-left"></i> {{ student.status != 'Active' ? 'Student Requests' : 'Student List' }}
-    </router-link>
+      <router-link :to="{ name: 'childrenShow' }" class="btn btn-blue position-fixed bottom-0 end-0 m-3">
+        <i class="fas fa-arrow-left"></i> Children
+      </router-link>
     </div>
   </template>
   
@@ -158,7 +133,7 @@
       };
     },
     mounted() {
-      const studentId = this.$route.params.id;
+      const studentId = '67874ef9-979f-4a5d-85ad-b0371bd074a1';
       if (studentId) {
         this.getStudent(studentId);
       } else {

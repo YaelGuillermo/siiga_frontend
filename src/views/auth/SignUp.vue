@@ -24,7 +24,8 @@
   
             <!-- Confirm Password input -->
             <div class="form-outline mb-2">
-              <input type="password" class="form-control form-control-lg" placeholder="confirm password" required />
+              <small class="text-danger">{{ errors.confirmPassword }}</small>
+              <input type="password" v-model="confirmPassword" class="form-control form-control-lg" placeholder="confirm password" required />
               <label class="form-label">Confirm Password</label>
             </div>
   
@@ -38,17 +39,17 @@
             </div>
   
             <div class="row justify-content-center">
-            <!-- Continue with Google -->
+            <!-- Continue with Google
             <div class="col-6 mb-3 text-center">
               <a class="btn btn-primary btn-lg btn-block" style="background-color: #dd4b39" href="#!"
                 role="button">
                 <i class="fab fa-google me-2"></i>Continue with Google
               </a>
-            </div>
+            </div> -->
 
             <!-- Register Now -->
             <div class="col-6 text-center">
-              <a class="btn btn-primary btn-lg btn-block" style="background-color: #402368" href="#!"
+              <a class="btn btn-primary btn-lg btn-block" style="background-color: #402368" href="/"
                 role="button">
                 <i class="fas fa-user" style="color: #ffffff;"></i> Sign in
               </a>
@@ -82,7 +83,7 @@
           first_surname: 'First surname',
           second_surname: 'Second surname',
           date_of_birth: '2000/01/01',
-          gender: 'M',
+          gender: 'U',
           neighborhood: 'neighborhood',
           street: 'Street',
           phone_number: '664 000 00 00',
@@ -92,11 +93,16 @@
           email: '',
           password: ''
         },
+        confirmPassword: '',
         errors: {}
       };
     },
     methods: {
         createUser() {
+          if (this.user.password != this.confirmPassword) {
+            this.errors.confirmPassword = "Passwords don't match";
+            return; // Detener el proceso de registro si las contraseñas no coinciden
+          }
             createUser(this.user)
                 .then(response => {
                     showCreateSuccessMessage(this.user.email);
@@ -229,7 +235,7 @@
                                 <label for="text" class="login__label">Gender</label>
                                 <select class="login__input" v-model="gender" required>
                                     <option value="M">Male</option>
-                                    <option value="F">Female</option>
+                                    <option value="F">Female</option><option value="U">Undefined</option>
                                 </select>
                             </div>
 

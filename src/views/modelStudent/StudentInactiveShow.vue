@@ -13,7 +13,7 @@ export default {
   },
   data() {
     return {
-      status: 'Inactive' || 'Under Review'
+    status: 'Under review'
     };
   }
 };

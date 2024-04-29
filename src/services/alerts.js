@@ -43,3 +43,11 @@ export const showErrorMessage = (message) => {
     text: message,
   });
 };
+
+export const showLogoutSuccessMessage = (userName) => {
+  Swal.fire({
+    icon: 'success',
+    title: 'Logged out successfully!',
+    text: `${userName} have been logged out successfully.`,
+  });
+};

@@ -77,9 +77,9 @@
                         <li class="nav-item active">
                                 <a class="nav-link" href="#">My Profile</a>
                             </li>
-                            <li class="nav-item active">
-                                <a class="nav-link" href="#">Sign Out</a>
-                            </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#" id="sign-out-link">Sign Out</a>
+                        </li>
                         </ul>
                 </div>
             </nav>
@@ -89,15 +89,36 @@
 </template>
 
 <script>
-    $(document).ready(function () {
-        $('#sidebarCollapse').on('click', function () {
-            $('#sidebar').toggleClass('active');
-            // Añade esta línea para agregar o quitar la clase 'active' del botón también
-            $(this).toggleClass('active');
-        });
-    });
-</script>
+import { showLogoutSuccessMessage, showErrorMessage } from '@/services/alerts';
+import { logoutUser } from '@/services/authService';
+import { getFullName } from '@/services/dataService';
 
+export default {
+  mounted() {
+    $('#sign-out-link').click(this.handleLogout);
+    $('#sidebarCollapse').click(this.toggleSidebar);
+  },
+  methods: {
+    async handleLogout(event) {
+      event.preventDefault();
+      try {
+        await logoutUser();
+        showLogoutSuccessMessage(getFullName(this.user));
+        localStorage.removeItem('user');
+        window.location.href = '/';
+      } catch (error) {
+        console.log(error);
+        showErrorMessage("Error logging out. Please try again later");
+      }
+    },
+    toggleSidebar() {
+      $('#sidebar').toggleClass('active');
+      $(this).toggleClass('active');
+    },
+    getFullName
+  }
+};
+</script>
 
 <style>
 /*

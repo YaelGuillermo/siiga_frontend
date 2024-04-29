@@ -25,17 +25,15 @@
                     </ul>
                 </li> -->
                 <li>
-    <router-link :to="{ name: 'studentActiveShow' }" class="sidebar-link">
-        <i class="fas fa-user"></i> My Profile
-    </router-link>
-</li>
-<li>
-    <router-link :to="{ name: 'childrenShow' }" class="sidebar-link">
-        <i class="fas fa-child"></i> Children
-    </router-link>
-</li>
-
-
+                    <router-link :to="{ name: 'parentEdit', params: { id: '67874ef9-979f-4a5d-85ad-b0371bd074a1' }}" class="sidebar-link">
+                        <i class="fas fa-user"></i> My Profile
+                    </router-link>
+                </li>
+                <li>
+                    <router-link :to="{ name: 'childrenShow' }" class="sidebar-link">
+                        <i class="fas fa-child"></i> Children
+                    </router-link>
+                </li>
             </ul>
 
             <ul class="list-unstyled CTAs">
@@ -71,28 +69,42 @@
 </template>
 
 <script>
-  $(document).ready(function() {
-    $('#sign-out-link').click(function(event) {
-      event.preventDefault(); // Evita el comportamiento predeterminado del enlace
+import { showLogoutSuccessMessage, showErrorMessage } from '@/services/alerts';
+import { logoutUser } from '@/services/authService';
+import { getFullName } from '@/services/dataService';
 
-      // Realiza una solicitud POST al endpoint de logout
-      $.post('http://siiga_backend.test/api/v1/logout', function(data, status) {
-        // Si la solicitud es exitosa, muestra un mensaje y redirige al usuario
-        alert(data.message);
-        window.location.href = '/'; // Redirige al usuario a la página de inicio u otra página deseada
-      }).fail(function(xhr, status, error) {
-        // Si la solicitud falla, muestra un mensaje de error
-        alert('Error: ' + xhr.responseText);
-      });
-    });
-
-    $('#sidebarCollapse').on('click', function() {
+export default {
+    computed: {
+    user() {
+      return this.$store.state.user; // Accede al objeto del usuario desde el estado Vuex
+    }
+  },
+  mounted() {
+    $('#sign-out-link').click(this.handleLogout);
+    $('#sidebarCollapse').click(this.toggleSidebar);
+  },
+  methods: {
+    async handleLogout(event) {
+      event.preventDefault();
+      try {
+        await logoutUser();
+        showLogoutSuccessMessage(getFullName(this.user));
+        localStorage.removeItem('user');
+        window.location.href = '/';
+      } catch (error) {
+        console.log(error);
+        showErrorMessage("Error logging out. Please try again later");
+      }
+    },
+    toggleSidebar() {
       $('#sidebar').toggleClass('active');
-      // Añade esta línea para agregar o quitar la clase 'active' del botón también
       $(this).toggleClass('active');
-    });
-  });
+    },
+    getFullName
+  }
+};
 </script>
+
 
 
 

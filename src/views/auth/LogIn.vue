@@ -23,7 +23,7 @@
           <!-- Forgot password -->
           <!-- Register button -->
           <div class="mt-1 text-center mb-4">
-            <p class="mb-0">Forgot your password? <a href="#!" class="text-decoration-none">Recover it!</a></p>
+            <p class="mb-0">Forgot your password? <a href="/recoverPassword" class="text-decoration-none">Recover it!</a></p>
           </div>
 
           <!-- Submit button -->
@@ -36,17 +36,17 @@
           </div>
 
           <div class="row justify-content-center">
-            <!-- Continue with Google -->
+            <!-- Continue with Google 
             <div class="col-6 mb-3 text-center">
-              <a class="btn btn-primary btn-lg btn-block" style="background-color: #dd4b39" href="#!"
+              <a class="btn btn-primary btn-lg btn-block" style="background-color: #dd4b39"
                 role="button">
                 <i class="fab fa-google me-2"></i>Continue with Google
               </a>
-            </div>
+            </div> -->
 
             <!-- Register Now -->
             <div class="col-6 text-center">
-              <a class="btn btn-primary btn-lg btn-block" style="background-color: #402368" href="#!"
+              <a class="btn btn-primary btn-lg btn-block" style="background-color: #402368" href="/signup"
                 role="button">
                 <i class="fas fa-user-plus me-2" style="color: #ffffff;"></i> Register Now
               </a>
@@ -70,44 +70,32 @@
 </style>
 
 <script>
-import axios from 'axios';
+import { getUserByEmailAndPassword } from '@/services/authService';
 
 export default {
   data() {
     return {
       email: '',
-      password: '',
-      errorMessage: ''
+      password: ''
     };
   },
   methods: {
     async login() {
       try {
-        const response = await axios.post('http://siiga_backend.test/api/v1/login', {
-          email: this.email,
-          password: this.password
-        });
+        const response = await getUserByEmailAndPassword(this.email, this.password);
+        console.log(response.user);
+        localStorage.setItem('user', JSON.stringify(response.user));
 
-        // Guarda los datos del usuario en el almacenamiento local
-        localStorage.setItem('user', JSON.stringify(response.data.user));
-        
-        // Verifica el rol del usuario
-        const userRole = response.data.user.role;
-        console.log(userRole);
-        // Redirige al usuario según su rol
-        if (userRole == 'A') {
-          this.$router.push('/listAdministrator');
-        } else if (userRole == 'P') {
-          this.$router.push('/home');
-        } else {
-          // Redirige a una página por defecto si el rol no está definido
-          this.$router.push('/');
+        if (response.user.role == 'A') {
+          this.$router.push('/admin');
+        } else if (response.user.role == 'P') {
+          this.$router.push('/parent');
         }
       } catch (error) {
-        // Si la solicitud falla, muestra un mensaje de error
-        this.errorMessage = error.response.data.error;
+        console.log(error);
       }
     }
   }
 }
 </script>
+

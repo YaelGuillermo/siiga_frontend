@@ -82,6 +82,7 @@
                   <select class="form-control" v-model="student.gender" required>
                     <option value="M">Male</option>
                     <option value="F">Female</option>
+                    <option value="U">Undefined</option>
                   </select>
                   <small class="text-danger">{{ errors.gender }}</small>
                 </div>
@@ -113,6 +114,9 @@
           </div>
         </div>
       </form>
+      <router-link :to="{ name: 'childrenShow' }" class="btn btn-blue position-fixed bottom-0 end-0 m-3">
+        <i class="fas fa-arrow-left"></i> Children
+      </router-link>
     </div>
   </template>
 
@@ -141,7 +145,7 @@ export default {
     };
   },
   mounted() {
-    const userId = this.getUserUUIDFromLocalStorage();
+    const userId = '67874ef9-979f-4a5d-85ad-b0371bd074a1';
     if (userId) {
         console.log(userId);
       this.student.user_id = userId;

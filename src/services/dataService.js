@@ -88,27 +88,33 @@ export const formatDate = (dateString) => {
 };
 
 export const formatStatus = (status) => {
-    if (status == 0) {
-        return {
-            text: 'Under review',
-            color: 'orange',
-            icon: 'fa fa-exclamation-circle'
-        };
-    } else if (status == 1) {
-        return {
-            text: 'Active',
-            color: 'green',
-            icon: 'fa fa-check-circle'
-        };
-    } else {
-        return {
-            text: 'Unknown',
-            color: 'black',
-            icon: 'fa fa-question-circle'
-        };
+    switch (status) {
+        case 'Active':
+            return {
+                text: 'Active',
+                color: 'green',
+                icon: 'fa fa-check-circle'
+            };
+        case 'Inactive':
+            return {
+                text: 'Inactive',
+                color: 'red',
+                icon: 'fa fa-times-circle'
+            };
+        case 'Under review':
+            return {
+                text: 'Under review',
+                color: 'orange',
+                icon: 'fa fa-exclamation-circle'
+            };
+        default:
+            return {
+                text: 'Unknown',
+                color: 'black',
+                icon: 'fa fa-question-circle'
+            };
     }
 };
-
 
 export const formatCurrency = (amount) => {
     const formattedAmount = parseFloat(amount).toFixed(2);
@@ -126,7 +132,6 @@ export const formatGender = (gender) => {
         return 'Unknown';
     }
 };
-
 
 export const filterPhoneNumber = (phoneNumber) => {
     const cleanedNumber = phoneNumber.replace(/\D/g, '');

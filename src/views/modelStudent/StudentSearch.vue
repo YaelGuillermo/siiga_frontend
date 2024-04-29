@@ -6,6 +6,12 @@
           <img class="rounded-circle mt-5" width="150px" v-if="student && student.photo" :src="student.photo" alt="Student Image">
           <img class="rounded-circle mt-5" width="150px" v-else :src="require('@/assets/no-profile.png')" alt="No Profile Image">
           <span class="font-weight-bold">{{ getFullName(student) }}</span>
+          <div class="col-md-12 mt-3">
+      <div class="info">
+        <label class="labels font-weight-bold">Note</label>
+        <span class="text-center">{{ student.note }}</span>
+      </div>
+    </div>
         </div>
       </div>
       <div class="col-md-5 border-right">

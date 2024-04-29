@@ -1,46 +1,17 @@
 <script>
-import BarForAdmin from '../src/components/BarForAdmin.vue';
-import BarForParent from '../src/components/BarForParent.vue';
+import BarForGuest from './components/BarForGuest.vue';
 
 export default {
   components: {
-    BarForAdmin,
-    BarForParent
-  },
-  data() {
-    return {
-      loggedIn: false,
-      isAdmin: false,
-      isParent: false
-    };
-  },
-  created() {
-    const loggedIn = localStorage.getItem('user');
-    if (loggedIn) {
-      const user = JSON.parse(loggedIn);
-      this.isAdmin = user.role === 'A';
-      this.isParent = user.role === 'P';
-      this.loggedIn = true;
-    }
+    BarForGuest
   }
 };
 </script>
 
 <template>
-  <template v-if="isAdmin">
-    <BarForAdmin>
-      <router-view />
-    </BarForAdmin>
-  </template>
-  <template v-if="isParent">
-    <BarForParent>
-      <router-view />
-    </BarForParent>
-  </template>
-  <template v-else>
-    <router-view />
-  </template>
+  <router-view/>
 </template>
+
 
 <style is:global>
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap');
@@ -49,8 +20,8 @@ export default {
   font-family: "Comfortaa", sans-serif;
   font-size: 1rem;
   font-optical-sizing: auto;
-  font-weight: <weight>;
-  font-style: normal;
+  /*font-weight: <weight>;
+  font-style: normal;*/
 }
 
 .table-group-divider {

@@ -68,6 +68,7 @@
                               <select class="form-control" v-model="user.gender" required>
                                 <option value="M">Male</option>
                                 <option value="F">Female</option>
+                                <option value="U">Undefined</option>
                               </select>
                               <small class="text-danger">{{ errors.gender }}</small>
                           </div>

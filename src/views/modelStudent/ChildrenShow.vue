@@ -25,8 +25,13 @@
                   <th></th>
                 </tr>
               </thead>
-              <tbody>
-                <template v-if="user.students.length > 0">
+              <tbody class="table-group-divider">
+                <tr v-if="loading">
+                  <td colspan="10">
+                    <h3>Loading ...</h3>
+                  </td>
+                </tr>
+                
                   <tr v-for="(student, index) in user.students" :key="student.id">
                     <td>
                       <img :src="student.photo || require('@/assets/no-profile.png')" alt="User Photo" class="rounded-circle img-thumbnail" style="width: 38px; height: 38px;">
@@ -36,37 +41,30 @@
                     <td>{{ formatGender(student.gender) }}</td>
                     <td>{{ student.curp }}</td>
                     <td>
-        <span :style="{ color: formatStatus(student.status).color }">
-            <i :class="formatStatus(student.status).icon"></i> {{ formatStatus(student.status).text }}
-        </span>
-    </td>
-            
-                    <td v-if="student.status != 1">
-                      <router-link :to="{ name: 'studentEdit', params: { id: student.id }}" class="btn btn-sm" role="button">
-                        <i class="fas fa-edit"></i> Edit
-                      </router-link>
+    <span :style="{ color: formatStatus(student.status).color }">
+        <i :class="formatStatus(student.status).icon"></i> {{ formatStatus(student.status).text }}
+    </span>
+</td>
+                    <td v-if="student.status != 'Active'">
+                        <router-link :to="{ name: 'childrenEdit', params: { id: student.id }}" class="btn btn-sm" role="button">
+                            <i class="fas fa-edit"></i> Edit
+                        </router-link>
                     </td>
                     <td v-else>
                     </td>
                     <td>
-                      <router-link :to="{ name: 'studentView', params: { id: student.id }}" class="btn btn-sm" role="button">
-                        <i class="fas fa-eye"></i> Detail
-                      </router-link>
+                        <router-link :to="{ name: 'studentView', params: { id: student.id }}" class="btn btn-sm" role="button">
+                            <i class="fas fa-eye"></i> Detail
+                        </router-link>
                     </td>
-                  <td v-if="student.status != 1">
-                      <router-link :to="{ name: 'studentDelete', params: { id: student.id }}" class="btn btn-sm" role="button">
-                        <i class="fas fa-trash"></i> Delete
-                      </router-link>
+                    <td v-if="student.status != 'Active'">
+                        <router-link :to="{ name: 'studentDelete', params: { id: student.id }}" class="btn btn-sm" role="button">
+                            <i class="fas fa-trash"></i> Delete
+                        </router-link>
                     </td>
                     <td v-else>
                     </td>
                   </tr>
-                </template>
-                <template v-else>
-                  <tr>
-                    <td colspan="9">No students found.</td>
-                  </tr>
-                </template>
               </tbody>
             </table>
           </div>
@@ -88,8 +86,7 @@ export default {
     };
   },
   mounted() {
-    const userId = this.getUserUUIDFromLocalStorage();
-    console.log(userId);
+    const userId = '67874ef9-979f-4a5d-85ad-b0371bd074a1';
     if (userId) {
       this.getUser(userId);
     } else {
@@ -97,12 +94,6 @@ export default {
     }
   },
   methods: {
-    getUserUUIDFromLocalStorage() {
-      // Obtiene el UUID del usuario desde el almacenamiento local
-      const user = JSON.parse(localStorage.getItem('user'));
-      console.log(user);
-      return user ? user.id : null;
-    },
     getUser(userId) {
       this.loading = true;
       getUserById(userId)
