@@ -145,21 +145,15 @@ export default {
     };
   },
   mounted() {
-    const userId = '67874ef9-979f-4a5d-85ad-b0371bd074a1';
+    const userId= JSON.parse(localStorage.getItem('user'));
     if (userId) {
-        console.log(userId);
-      this.student.user_id = userId;
+      this.student.user_id = userId.id;
+      //this.getUser(userId.id);
     } else {
       console.error('No user ID provided.');
     }
   },
   methods: {
-    getUserUUIDFromLocalStorage() {
-      // Obtiene el UUID del usuario desde el almacenamiento local
-      const user = JSON.parse(localStorage.getItem('user'));
-      console.log(user);
-      return user ? user.id : null;
-    },
       onFileChange(event) {
           const file = event.target.files[0];
           this.student.photo = file;

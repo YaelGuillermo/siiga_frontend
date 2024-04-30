@@ -1,4 +1,5 @@
 <template>
+  <BarForGuest>
     <div>
       <div class="row d-flex align-items-center justify-content-center h-100">
         <div class="col-md-8 col-lg-7 col-xl-6 text-center mb-4">
@@ -59,6 +60,8 @@
         </div>
       </div>
     </div>
+  </BarForGuest>
+    
   </template>
   
   <style>
@@ -74,6 +77,7 @@
   <script>
   import { createUser } from '@/services/dataService';
   import { showCreateSuccessMessage, showErrorMessage } from '@/services/alerts';
+  import BarForGuest from '@/components/BarForGuest';
   
   export default {
     data() {
@@ -97,6 +101,9 @@
         errors: {}
       };
     },
+      components: {
+        BarForGuest
+      },
     methods: {
         createUser() {
           if (this.user.password != this.confirmPassword) {

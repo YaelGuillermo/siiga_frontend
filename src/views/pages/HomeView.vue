@@ -1,5 +1,6 @@
 <template>
-  <div class="container mt-5">
+  <BarForGuest>
+    <div class="container mt-5">
     <div class="row">
       <div class="col-md-6 text-center">
         <img src="@/assets/logo.png" alt="Imagen del colegio" class="img-fluid">
@@ -14,4 +15,14 @@
       </div>
     </div>
   </div>
+  </BarForGuest>
 </template>
+
+<script>
+  import BarForGuest from '@/components/BarForGuest.vue';
+  export default {
+    components: {
+      BarForGuest
+    }
+  }
+</script>

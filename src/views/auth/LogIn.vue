@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <BarForGuest>
+    <div>
     <div class="row d-flex align-items-center justify-content-center h-100">
       <div class="col-md-8 col-lg-7 col-xl-6 text-center mb-4">
         <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
@@ -56,6 +57,7 @@
       </div>
     </div>
   </div>
+  </BarForGuest>
 </template>
 
 
@@ -71,6 +73,8 @@
 
 <script>
 import { getUserByEmailAndPassword } from '@/services/authService';
+import BarForGuest from '@/components/BarForGuest.vue';
+import { showErrorMessage } from '@/services/alerts';
 
 export default {
   data() {
@@ -78,6 +82,9 @@ export default {
       email: '',
       password: ''
     };
+  },
+  components: {
+    BarForGuest
   },
   methods: {
     async login() {
@@ -87,12 +94,13 @@ export default {
         localStorage.setItem('user', JSON.stringify(response.user));
 
         if (response.user.role == 'A') {
-          this.$router.push('/admin');
+          this.$router.push({ name: 'studentInactiveShow' });
         } else if (response.user.role == 'P') {
-          this.$router.push('/parent');
+          this.$router.push({ name: 'childrenShow' });
         }
       } catch (error) {
         console.log(error);
+        showErrorMessage("Login failed. Incorrect email and/or password.");
       }
     }
   }

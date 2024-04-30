@@ -25,9 +25,12 @@
                     </ul>
                 </li> -->
                 <li>
-                    <router-link :to="{ name: 'parentEdit', params: { id: '67874ef9-979f-4a5d-85ad-b0371bd074a1' }}" class="sidebar-link">
+
+                    <router-link :to="{ name: 'parentEdit', params: { id: getUserProfile() }}" class="sidebar-link">
                         <i class="fas fa-user"></i> My Profile
                     </router-link>
+
+                    
                 </li>
                 <li>
                     <router-link :to="{ name: 'childrenShow' }" class="sidebar-link">
@@ -74,16 +77,15 @@ import { logoutUser } from '@/services/authService';
 import { getFullName } from '@/services/dataService';
 
 export default {
-    computed: {
-    user() {
-      return this.$store.state.user; // Accede al objeto del usuario desde el estado Vuex
-    }
-  },
   mounted() {
     $('#sign-out-link').click(this.handleLogout);
     $('#sidebarCollapse').click(this.toggleSidebar);
   },
   methods: {
+    getUserProfile() {
+        const userId = JSON.parse(localStorage.getItem('user'));
+        return userId.id
+    },
     async handleLogout(event) {
       event.preventDefault();
       try {

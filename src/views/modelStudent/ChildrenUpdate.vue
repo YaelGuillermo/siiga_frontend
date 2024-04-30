@@ -133,7 +133,7 @@
       };
     },
     mounted() {
-      const studentId = '67874ef9-979f-4a5d-85ad-b0371bd074a1';
+      const studentId =  this.$route.params.id;
       if (studentId) {
         this.getStudent(studentId);
       } else {
@@ -177,7 +177,7 @@
           .then(response => {
             console.log(studentData);
             showUpdateSuccessMessage(this.getFullName(this.student));
-            this.$router.push({ name: 'studentActiveShow' });
+            this.$router.push({ name: 'childrenShow' });
           })
           .catch(error => {
             showErrorMessage('Error updating student. Please try again later.');

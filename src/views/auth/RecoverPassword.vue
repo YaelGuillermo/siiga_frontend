@@ -1,4 +1,5 @@
 <template>
+  <BarForGuest>
     <div>
       <div class="row d-flex align-items-center justify-content-center h-100">
         <div class="col-md-8 col-lg-7 col-xl-6 text-center mb-4">
@@ -22,6 +23,7 @@
         </div>
       </div>
     </div>
+  </BarForGuest>
   </template>
   
   <style>
@@ -34,3 +36,11 @@
     }
   </style>
   
+  <script>
+  import BarForGuest from '@/components/BarForGuest.vue';
+  export default {
+    components: {
+      BarForGuest
+    }
+  }
+</script>

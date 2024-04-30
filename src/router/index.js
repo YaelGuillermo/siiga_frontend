@@ -34,7 +34,7 @@ const routes = [
   { path: '/:catchAll(.*)', redirect: '/error404' },
   { path: '/home', name: 'home', component: HomeView, meta: { requiresAuth: false } },
   { path: '/about', name: 'about', component: AboutView, meta: { requiresAuth: false } },
-  { path: '/', name: 'login', component: LogIn, meta: { requiresAuth: false } },
+  { path: '/', alias: '/login', name: 'login', component: LogIn, meta: { requiresAuth: false } },
   { path: '/signup', name: 'signup', component: SignUp, meta: { requiresAuth: false } },
   { path: '/recoverPassword', name: 'recoverPassword', component: RecoverPassword, meta: { requiresAuth: false } },
   { 

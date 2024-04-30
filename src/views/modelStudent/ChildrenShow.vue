@@ -5,7 +5,7 @@
         <div class="p-3 py-5">
           <div class="d-flex justify-content-between align-items-center mb-3">
             <h1>Children</h1>
-            <router-link :to="{ path: '/registerChildren' }" class="btn">
+            <router-link :to="{ name: 'childrenCreate' }" class="btn">
       <i class="fas fa-pencil-alt"></i> Create child
     </router-link>
           </div>
@@ -86,9 +86,9 @@ export default {
     };
   },
   mounted() {
-    const userId = '67874ef9-979f-4a5d-85ad-b0371bd074a1';
+    const userId= JSON.parse(localStorage.getItem('user'));
     if (userId) {
-      this.getUser(userId);
+      this.getUser(userId.id);
     } else {
       console.error('No user ID provided.');
     }
