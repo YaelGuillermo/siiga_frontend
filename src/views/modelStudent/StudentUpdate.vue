@@ -112,10 +112,13 @@
                   </div>
                 </div>
                 <div class="col-md-12">
-                    <div class="info">
-                        <label class="labels font-weight-bold">Birth Certificate</label>
-                        <input type="file" ref="birthCertificate" @change="handleFileUpload($event)" class="form-control" accept="image/*">
-                    </div>
+                  <div class="info">
+                    <label class="labels font-weight-bold">Parent</label>
+                    <select class="form-control" v-model="student.user_id" @change="getUserDetails" required>
+                      <option v-for="user in users" :key="user.id" :value="user.id">{{ getFullName(user) }}</option>
+                    </select>
+                    <small class="text-danger">{{ errors.user_id }}</small>
+                  </div>
                 </div>
                 <div class="col-md-12">
                   <div class="info">
@@ -146,7 +149,7 @@
   </template>
   
   <script>
-  import { getStudentById, updateStudent, getFullName } from '@/services/dataService';
+  import { getStudentById, updateStudent, getFullName, getUsers } from '@/services/dataService';
   import { showUpdateSuccessMessage, showErrorMessage } from '@/services/alerts';
   
   export default {
@@ -154,7 +157,8 @@
       return {
         student: null,
         loading: false,
-        errors: {}
+        errors: {},
+        users: null,
       };
     },
     mounted() {
@@ -164,8 +168,19 @@
       } else {
         console.error('No student ID provided.');
       }
+      this.getUsers();
     },
     methods: {
+      getUsers() {
+    getUsers()
+          .then(users => {
+            this.users = users;
+            this.loading = false;
+          })
+          .catch(error => {
+            console.error('Error fetching users:', error);
+            this.loading = false;
+          })},
       getStudent(studentId) {
         this.loading = true;
         getStudentById(studentId)

@@ -8,9 +8,15 @@
                 <i class="fas fa-cog"></i> Update
               </button>
               <img class="rounded-circle mt-5" width="150px" v-if="student && student.photo" :src="student.photo" alt="Student Image">
-            <img class="rounded-circle mt-5" width="150px" v-else :src="require('@/assets/no-profile.png')" alt="No Profile Image">
-            <span class="font-weight-bold">{{ getFullName(student) }}</span>
-            <br>
+                  <img class="rounded-circle mt-5" width="150px" v-else :src="require('@/assets/no-profile.png')" alt="No Profile Image">
+                  <span class="font-weight-bold">{{ getFullName(student) }}</span>
+                  <br>
+                  <div class="col-md-12">
+                    <div class="info">
+                        <label class="labels font-weight-bold">Photo</label>
+                        <input type="file" v-on:change="onFileChange" class="form-control" accept="image/*">
+                    </div>
+                </div>
             </div>
           </div>
           <div class="col-md-4 border-right">
@@ -141,6 +147,14 @@
       }
     },
     methods: {
+      onFileChange(event) {
+          const file = event.target.files[0];
+          this.student.photo = file;
+          const reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = (e) => {
+              this.student.photo = e.target.result;};
+          },
       getStudent(studentId) {
         this.loading = true;
         getStudentById(studentId)

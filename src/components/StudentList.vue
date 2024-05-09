@@ -2,7 +2,7 @@
   <div>
     <div class="d-flex justify-content-between align-items-center">
     <h1>{{ title }}</h1>
-    <router-link :to="{ path: '/registerStudent' }" class="btn">
+    <router-link :to="{ name: 'studentCreate' }" class="btn">
       <i class="fas fa-pencil-alt"></i> Create
     </router-link>
     </div>

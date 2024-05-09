@@ -57,12 +57,14 @@
               <h4 class="text-right">Others</h4>
             </div>
             <div class="col-md-12">
-                <div class="info">
-                  <label class="labels font-weight-bold">Student</label>
-                  <input type="text" v-model="payment.note" class="form-control" required>
-                  <small class="text-danger">{{ errors.student }}</small>
+                  <div class="info">
+                    <label class="labels font-weight-bold">Student</label>
+                    <select class="form-control" v-model="payment.student_id" @change="getStudentDetails" required>
+                      <option v-for="student in students" :key="student.id" :value="student.id">{{ getFullName(student) }}</option>
+                    </select>
+                    <small class="text-danger">{{ errors.student_id }}</small>
+                  </div>
                 </div>
-              </div>
               <div class="col-md-12">
               <div class="info">
                   <label class="labels font-weight-bold">Note</label>
@@ -79,7 +81,7 @@
 </template>
 
 <script>
-import { createPayment } from '@/services/dataService';
+import { createPayment, getStudents, getFullName } from '@/services/dataService';
 import { showCreateSuccessMessage, showErrorMessage } from '@/services/alerts';
 
 export default {
@@ -91,20 +93,39 @@ export default {
         photo: '',
         verified: ''
       },
-      errors: {}
+      errors: {},
+      students: null
     };
   },
+  mounted() {
+      this.getStudents();
+    },
   methods: {
     onFileChange(event) {
-      const file = event.target.files[0];
-      this.payment.photo = file;
-    },
+          const file = event.target.files[0];
+          this.payment.photo = file;
+          const reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = (e) => {
+              this.payment.photo = e.target.result;};
+          },
+    getStudents() {
+    getStudents()
+          .then(students => {
+            this.students = students;
+            this.loading = false;
+          })
+          .catch(error => {
+            console.error('Error fetching students:', error);
+            this.loading = false;
+          })},
     createPayment() {
       createPayment(this.payment)
         .then(response => {
           showCreateSuccessMessage('Payment created successfully');
           this.resetPaymentForm();
           // Redirect or perform any additional actions after successful payment creation
+          this.$router.push({ name: 'paymentShow' });
         })
         .catch(error => {
           showErrorMessage('Error creating payment. Please try again later.');
@@ -138,7 +159,8 @@ export default {
       if (fileInput) {
         fileInput.value = '';
       }
-    }
+    },
+    getFullName
   }
 };
 </script>

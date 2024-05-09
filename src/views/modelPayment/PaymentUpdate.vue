@@ -76,7 +76,7 @@
         </div>
       </div>
     </form>
-    <router-link :to="{ path: '/listPayment' }" class="btn btn-blue position-fixed bottom-0 end-0 m-3">
+    <router-link :to="{ name: 'paymentShow' }" class="btn btn-blue position-fixed bottom-0 end-0 m-3">
     <i class="fas fa-arrow-left"></i> List of payments
   </router-link>
   </div>
@@ -103,6 +103,14 @@ export default {
     }
   },
   methods: {
+    onFileChange(event) {
+          const file = event.target.files[0];
+          this.payment.photo = file;
+          const reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = (e) => {
+              this.payment.photo = e.target.result;};
+          },
     getPayment(paymentId) {
       this.loading = true;
       getPaymentById(paymentId)
@@ -115,7 +123,7 @@ export default {
           this.loading = false;
         });
     },
-    updateStudentProfile() {
+    updatePaymentProfile() {
         this.loading = true;
         this.clearErrors();
         const studentId = this.student.id;

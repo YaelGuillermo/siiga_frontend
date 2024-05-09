@@ -29,10 +29,19 @@ export default {
 }
 
 .btn {
-    padding: 5px;
-    /*color: #402368;*/
-    border-radius: 5px;
-    text-decoration: none;
+    background-color: #2d184b; /* Fondo transparente */
+    border-radius: 9ch; /* Hace el botón circular */
+    border-color: 2px solid #2d184b; /* Color del borde */
+    color: white;
+    text-decoration: none; /* Elimina el subrayado del texto */
+    padding: 5px;; /* Ajusta el relleno del botón según sea necesario */
+    display: inline-block; /* Hace que el botón se comporte como un elemento en línea */
+}
+
+.btn:hover {
+    background-color: #BA68C8; /* Cambia el color de fondo al hacer hover */
+    border-color: #BA68C8; /* Cambia el color del borde al hacer hover */
+    color: white; /* Cambia el color del texto al hacer hover */
 }
 
 .pagination-wrapper .pagination .page-item .page-link {

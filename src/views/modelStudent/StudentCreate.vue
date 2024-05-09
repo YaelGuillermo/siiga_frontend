@@ -117,21 +117,21 @@
                     </div>
                 </div>
                 <div class="col-md-12">
-                <div class="info">
-                  <label class="labels font-weight-bold">Parent</label>
-                  <select class="form-control" v-model="student.status" required>
-                    <option value="0">Active</option>
-                    <option value="1">Inactive</option>
-                  </select>
-                  <small class="text-danger">{{ errors.status }}</small>
+                  <div class="info">
+                    <label class="labels font-weight-bold">Parent</label>
+                    <select class="form-control" v-model="student.user_id" @change="getUserDetails" required>
+                      <option v-for="user in users" :key="user.id" :value="user.id">{{ getFullName(user) }}</option>
+                    </select>
+                    <small class="text-danger">{{ errors.user_id }}</small>
+                  </div>
                 </div>
-              </div>
               <div class="col-md-12">
                 <div class="info">
                   <label class="labels font-weight-bold">Status</label>
                   <select class="form-control" v-model="student.status" required>
-                    <option value="0">Active</option>
-                    <option value="1">Inactive</option>
+                    <option value='Active'>Active</option>
+                    <option value='Inactive'>Inactive</option>
+                    <option value='Under review'>Under review</option>
                   </select>
                   <small class="text-danger">{{ errors.status }}</small>
                 </div>
@@ -147,7 +147,7 @@
   </template>
 
 <script>
-import { createStudent, getFullName } from '@/services/dataService';
+import { createStudent, getFullName, getUsers } from '@/services/dataService';
 import { showCreateSuccessMessage, showErrorMessage } from '@/services/alerts';
 
 export default {
@@ -164,21 +164,35 @@ export default {
         birth_certificate: '',
         photo: '',
         note: '',
-        status: ''
+        status: '',
+        user_id: ''
       },
-      errors: {}
+      errors: {},
+      users: null,
     };
   },
+  mounted() {
+      this.getUsers();
+    },
   methods: {
-      onFileChange(event) {
+    onFileChange(event) {
           const file = event.target.files[0];
           this.student.photo = file;
           const reader = new FileReader();
           reader.readAsDataURL(file);
           reader.onload = (e) => {
               this.student.photo = e.target.result;
-          };
-      },
+          }},
+    getUsers() {
+    getUsers()
+          .then(users => {
+            this.users = users;
+            this.loading = false;
+          })
+          .catch(error => {
+            console.error('Error fetching users:', error);
+            this.loading = false;
+          })},
       createStudent() {
           createStudent(this.student)
               .then(response => {
@@ -194,7 +208,8 @@ export default {
                     birth_certificate: '',
                     photo: '',
                     note: '',
-                    status: ''
+                    status: '',
+                    user_id: ''
                   };
                   this.$router.push({ name: 'parentShow' });
               })

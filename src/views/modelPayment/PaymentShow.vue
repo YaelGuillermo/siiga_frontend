@@ -2,7 +2,7 @@
   <div>
     <div class="d-flex justify-content-between align-items-center">
   <h1> List of Payments </h1>
-  <router-link :to="{ path: '/registerPayment' }" class="btn">
+  <router-link :to="{ name: 'paymentCreate' }" class="btn">
     <i class="fas fa-pencil-alt"></i> Create
   </router-link>
     </div>
